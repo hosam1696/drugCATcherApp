@@ -14,3 +14,55 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+$primary:    color($colors, primary);
+$secondary:    color($colors, secondary);
+$danger:    color($colors, danger);
+$light:    color($colors, light);
+$dark:    color($colors, dark);
+
+@font-face {
+  font-family: 'Roboto-Regular';
+  src: url('../assets/fonts/Roboto-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+ion-list-header {
+ min-height: 10px !important;
+  margin: 0;
+  ion-header {
+    margin-bottom: 0 !important;
+  }
+}
+* {
+  font-family: "Roboto-Regular", sans-serif;
+}
+
+
+.item-inner {
+  border-bottom : none !important
+}
+
+.rounded {
+  border-radius: 50%;
+  width: 25px;
+  height:25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-img {
+  padding: 15px;
+  text-align:center;
+  p  {
+    margin-top: 2px;
+    color: #999;
+    margin-bottom: 5px;
+  }
+}
+
+button {
+  border-radius: 0 !important;
+}
+

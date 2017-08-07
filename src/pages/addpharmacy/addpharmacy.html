@@ -1,0 +1,198 @@
+<!--
+  Generated template for the AddpharmacyPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title >Pharmacy Details</ion-title>
+    <ion-buttons end>
+      <img src="assets/img/cat.png" alt="cat image" width="30">
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content no-padding>
+  <div #map id="map" style="height:100%;"></div>
+
+  <form
+    novalidate
+    [formGroup]="AddPharmacyForm"
+    (ngSubmit)="submitForm()"
+  >
+    <div class="form-group" margin-bottom>
+    <button  block ion-button type="button" ><ion-icon name="pin" margin-right></ion-icon> Locate
+
+    </button>
+    </div>
+
+    <div class="form-group">
+
+      <div class="form-ctrl-icon">
+        <ion-icon name="ios-baseball-outline"></ion-icon>
+      </div>
+
+      <div class="input-ctrl">
+        <input type="text"  placeholder="Government" class="form-control" formControlName="government" >
+        <div class="validator">
+          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.government.valid?'primary':'lightDark'"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+
+      <div class="form-ctrl-icon">
+        <ion-icon name="ios-baseball-outline"></ion-icon>
+      </div>
+
+      <div class="input-ctrl">
+        <input type="text" placeholder="City" class="form-control" formControlName="city" >
+        <div class="validator">
+          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.city.valid?'primary':'lightDark'"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+
+      <div class="form-ctrl-icon">
+        <ion-icon name="ios-baseball-outline"></ion-icon>
+      </div>
+
+      <div class="input-ctrl">
+        <input type="text"  placeholder="Area" class="form-control" formControlName="area" >
+        <div class="validator">
+          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.area.valid?'primary':'lightDark'"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+
+      <div class="form-ctrl-icon">
+        <ion-icon name="ios-baseball-outline"></ion-icon>
+      </div>
+
+      <div class="input-ctrl">
+        <input type="text"  placeholder="Address" class="form-control" formControlName="address" >
+        <div class="validator">
+          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.address.valid?'primary':'lightDark'"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+
+      <div class="form-ctrl-icon">
+        <ion-icon name="ios-baseball-outline"></ion-icon>
+      </div>
+
+      <div class="input-ctrl">
+        <input type="text"  placeholder="Landmark" class="form-control" formControlName="landmark" >
+        <div class="validator">
+          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.landmark.valid?'primary':'lightDark'"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+
+      <div class="form-ctrl-icon">
+        <ion-icon name="ios-baseball-outline"></ion-icon>
+      </div>
+
+      <div class="input-ctrl">
+        <input type="text"  placeholder="Pharmacy name" class="form-control" formControlName="pharmacyname" >
+        <div class="validator">
+          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.pharmacyname.valid?'primary':'lightDark'"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-group select-role">
+      <div class="input-ctrl">
+        <ion-select   class="form-control" formControlName="role" >
+          <ion-option value="0"> Pharmacy   Owner </ion-option>
+          <ion-option value="1"> Pharmacy   Manager</ion-option>
+          <ion-option value="2"> First Pharmacist    </ion-option>
+          <ion-option value="3"> Second   Pharmacist</ion-option>
+          <ion-option value="4"> Trainee </ion-option>
+          <ion-option value="5"> Assistant </ion-option>
+        </ion-select>
+
+      </div>
+      <div class="form-ctrl-icon">
+        <ion-icon name="ios-arrow-down"></ion-icon>
+      </div>
+
+
+    </div>
+
+
+    <div class="form-group">
+
+      <div class="form-ctrl-icon">
+        <ion-icon name="ios-baseball-outline"></ion-icon>
+      </div>
+
+      <div class="input-ctrl">
+        <input type="text"  placeholder="Personal Id" class="form-control" formControlName="personalid" >
+        <div class="validator">
+          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.personalid.valid?'primary':'lightDark'"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+
+      <div class="form-ctrl-icon">
+        <ion-icon name="ios-baseball-outline"></ion-icon>
+      </div>
+
+      <div class="input-ctrl">
+        <input type="text" placeholder="registration number" class="form-control" formControlName="reg_num" >
+        <div class="validator">
+          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.reg_num.valid?'primary':'lightDark'"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="form-group">
+
+      <div class="form-ctrl-icon">
+        <ion-icon name="ios-baseball-outline"></ion-icon>
+      </div>
+
+      <div class="input-ctrl">
+        <input type="text"  placeholder="syndicate number" class="form-control" formControlName="syndicate_num" >
+        <div class="validator">
+          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.syndicate_num.valid?'primary':'lightDark'"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <button  type="submit" ion-button  block>
+        Add
+        <ion-spinner *ngIf="showLoader" name="crescent"></ion-spinner>
+      </button>
+    </div>
+
+  </form>
+
+</ion-content>

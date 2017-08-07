@@ -1,0 +1,19 @@
+page-chooseaddorjoin {
+
+
+  ion-content {
+    &.content {
+      background-color: $light
+    }
+    button {
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 2rem !important;
+      box-shadow: none !important;
+      padding: 22px !important;
+      &:first-of-type {
+        margin-bottom: 15px !important;
+      }
+    }
+  }
+}

@@ -1,14 +1,31 @@
 <ion-menu [content]="content">
   <ion-header>
-    <ion-toolbar>
+    <ion-toolbar color="primary">
       <ion-title>Menu</ion-title>
+      <ion-buttons start>
+        <button ion-button clear menuToggle color="light">
+          <ion-icon name="menu"></ion-icon>
+        </button>
+      </ion-buttons>
     </ion-toolbar>
+
   </ion-header>
 
   <ion-content>
+
+    <div class="user-img">
+      <img src="assets/img/cat.png" alt="cat image" width="40">
+      <p class="email">drug.catcher@outlook.com</p>
+    </div>
+
     <ion-list>
+      <ion-list-header text-center color="primary">
+          pharmacy code: 516489449
+      </ion-list-header>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+        <ion-icon name="ios-baseball-outline"></ion-icon>&nbsp; {{p.title}}
+
+        <ion-badge *ngIf="p.badge" item-right  class="rounded">53</ion-badge>
       </button>
     </ion-list>
   </ion-content>

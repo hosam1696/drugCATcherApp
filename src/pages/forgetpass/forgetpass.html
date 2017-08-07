@@ -1,0 +1,42 @@
+<ion-content padding>
+
+  <form
+    [formGroup] = 'ForgetPass'
+    novalidate
+    (ngSubmit)="submitForgetPass()"
+  >
+
+    <div class="img">
+      <img src="assets/img/cat-logo-2-02.png" alt="">
+    </div>
+
+    <div class="form-group">
+
+      <div class="form-ctrl-icon">
+        <ion-icon name="ios-baseball-outline"></ion-icon>
+      </div>
+
+      <div class="input-ctrl">
+        <input type="email" email placeholder="E-mail" class="form-control" formControlName="email" >
+        <div class="validator">
+          <ion-icon name="checkmark" [color]="ForgetPass.controls.email.valid?'primary':'lightDark'"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-btns">
+
+      <button class="log-btn" type="submit" block ion-button >
+
+        send Pass to Email
+        &nbsp;&nbsp;
+        <ion-spinner *ngIf="showLoader" name="crescent"></ion-spinner>
+      </button>
+
+
+    </div>
+  </form>
+
+
+</ion-content>

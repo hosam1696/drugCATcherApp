@@ -1,0 +1,79 @@
+<!--
+  Generated template for the LoginPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+
+<!--
+<ion-header>
+
+  <ion-navbar color="primary">
+    <ion-title>Login page</ion-title>
+  </ion-navbar>
+
+</ion-header>
+-->
+
+<ion-content padding>
+
+  <form
+    [formGroup] = 'loginForm'
+    novalidate
+    (ngSubmit)="submitLoginUser()"
+  >
+
+    <div class="img">
+      <img src="assets/img/cat-logo-2-02.png" alt="">
+    </div>
+
+    <div class="form-group">
+
+      <div class="form-ctrl-icon">
+        <ion-icon name="ios-baseball-outline"></ion-icon>
+      </div>
+
+      <div class="input-ctrl">
+        <input type="email" email placeholder="E-mail" class="form-control" formControlName="email" >
+        <div class="validator">
+          <ion-icon name="checkmark" [color]="loginForm.controls.email.valid?'primary':'lightDark'"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+
+      <div class="form-ctrl-icon" >
+        <ion-icon name="ios-baseball-outline"></ion-icon>
+      </div>
+
+      <div class="input-ctrl">
+        <input type="password" placeholder="password" class="form-control" formControlName="password" >
+        <div class="validator">
+          <ion-icon name="checkmark" [color]="loginForm.controls.password.valid?'primary':'lightDark'"></ion-icon>
+        </div>
+      </div>
+
+
+    </div>
+
+        <button type="button" class="forget-pass" float-right ion-button small clear color="secondDark" (click)="navigateToPage('ForgetpassPage')">forget password?</button>
+    <div class="clearfix"></div>
+    <div class="form-btns">
+
+      <button class="log-btn" type="submit" block ion-button >
+
+        Log in
+        &nbsp;&nbsp;
+        <ion-spinner *ngIf="showLoader" name="crescent"></ion-spinner>
+      </button>
+
+      <button  class="log-btn" type="button" block outline ion-button  (click)="navigateToPage('SignupPage')">
+        Sign up
+      </button>
+    </div>
+  </form>
+
+
+</ion-content>
