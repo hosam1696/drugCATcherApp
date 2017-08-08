@@ -25,7 +25,7 @@
     (ngSubmit)="submitForm()"
   >
     <div class="form-group" margin-bottom>
-    <button  block ion-button type="button" ><ion-icon name="pin" margin-right></ion-icon> Locate
+    <button  (click)="getLocation()" block ion-button type="button" ><ion-icon name="pin" margin-right></ion-icon> Locate
 
     </button>
     </div>
@@ -33,7 +33,8 @@
     <div class="form-group">
 
       <div class="form-ctrl-icon">
-        <ion-icon name="ios-baseball-outline"></ion-icon>
+        <img src="assets/icons/gonern-50.png" width="27" alt="">
+        <!--<ion-icon name="ios-baseball-outline"></ion-icon>-->
       </div>
 
       <div class="input-ctrl">
@@ -48,7 +49,8 @@
     <div class="form-group">
 
       <div class="form-ctrl-icon">
-        <ion-icon name="ios-baseball-outline"></ion-icon>
+        <img src="assets/icons/city.png" width="27" alt="">
+        <!--<ion-icon name="ios-baseball-outline"></ion-icon>-->
       </div>
 
       <div class="input-ctrl">
@@ -63,7 +65,8 @@
     <div class="form-group">
 
       <div class="form-ctrl-icon">
-        <ion-icon name="ios-baseball-outline"></ion-icon>
+        <img src="assets/icons/area-50.png" width="27" alt="">
+        <!--<ion-icon name="ios-baseball-outline"></ion-icon>-->
       </div>
 
       <div class="input-ctrl">
@@ -78,7 +81,8 @@
     <div class="form-group">
 
       <div class="form-ctrl-icon">
-        <ion-icon name="ios-baseball-outline"></ion-icon>
+        <img src="assets/icons/area-50.png" width="27" alt="">
+        <!--<ion-icon name="ios-baseball-outline"></ion-icon>-->
       </div>
 
       <div class="input-ctrl">
@@ -93,7 +97,8 @@
     <div class="form-group">
 
       <div class="form-ctrl-icon">
-        <ion-icon name="ios-baseball-outline"></ion-icon>
+        <img src="assets/icons/Landmark.png" width="27" alt="">
+        <!--<ion-icon name="ios-baseball-outline"></ion-icon>-->
       </div>
 
       <div class="input-ctrl">
@@ -108,7 +113,8 @@
     <div class="form-group">
 
       <div class="form-ctrl-icon">
-        <ion-icon name="ios-baseball-outline"></ion-icon>
+        <img src="assets/icons/pharmacy-50.png" width="27" alt="">
+        <!--<ion-icon name="ios-baseball-outline"></ion-icon>-->
       </div>
 
       <div class="input-ctrl">
@@ -119,6 +125,39 @@
       </div>
 
     </div>
+
+    <div class="form-group">
+
+      <div class="form-ctrl-icon">
+        <img src="assets/icons/phone.png" width="27" alt="">
+        <!--<ion-icon name="ios-baseball-outline"></ion-icon>-->
+      </div>
+
+      <div class="input-ctrl">
+        <input type="text" placeholder="pharmacy number" class="form-control" formControlName="mobile" >
+        <div class="validator">
+          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.mobile.valid?'primary':'lightDark'"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+
+      <div class="form-ctrl-icon">
+        <img src="assets/icons/ATTATCHMENT.png" width="27" alt="">
+        <!--<ion-icon name="ios-baseball-outline"></ion-icon>-->
+      </div>
+
+      <div class="input-ctrl">
+        <input type="text" placeholder="registration number" class="form-control" formControlName="reg_num" >
+        <div class="validator">
+          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.reg_num.valid?'primary':'lightDark'"></ion-icon>
+        </div>
+      </div>
+
+    </div>
+
 
     <div class="form-group select-role">
       <div class="input-ctrl">
@@ -143,7 +182,8 @@
     <div class="form-group">
 
       <div class="form-ctrl-icon">
-        <ion-icon name="ios-baseball-outline"></ion-icon>
+        <img src="assets/icons/ATTATCHMENT.png" width="27" alt="">
+        <!--<ion-icon name="ios-baseball-outline"></ion-icon>-->
       </div>
 
       <div class="input-ctrl">
@@ -155,26 +195,14 @@
 
     </div>
 
-    <div class="form-group">
 
-      <div class="form-ctrl-icon">
-        <ion-icon name="ios-baseball-outline"></ion-icon>
-      </div>
-
-      <div class="input-ctrl">
-        <input type="text" placeholder="registration number" class="form-control" formControlName="reg_num" >
-        <div class="validator">
-          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.reg_num.valid?'primary':'lightDark'"></ion-icon>
-        </div>
-      </div>
-
-    </div>
 
 
     <div class="form-group">
 
       <div class="form-ctrl-icon">
-        <ion-icon name="ios-baseball-outline"></ion-icon>
+        <img src="assets/icons/ATTATCHMENT.png" width="27" alt="">
+        <!--<ion-icon name="ios-baseball-outline"></ion-icon>-->
       </div>
 
       <div class="input-ctrl">

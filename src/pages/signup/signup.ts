@@ -23,7 +23,7 @@ export class SignupPage {
               public toastCtrl: ToastController) {
 
     this.signupForm = this.formBuilder.group({
-      country : ['TU', Validators.compose([Validators.required])],
+      country : ['EG', Validators.compose([Validators.required])],
       firstname: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
       lastname: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
       mobile: ['', Validators.compose([Validators.required, Validators.minLength(8),Validators.pattern('[0-9]+')])],

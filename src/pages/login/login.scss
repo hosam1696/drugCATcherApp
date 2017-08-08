@@ -22,7 +22,8 @@ page-login {
   }
   ion-content {
     &.content {
-      background-color: $light
+      //repeating-linear-gradient(45deg, #f8f8f8, #f8f8f8 1px, transparent 1px, transparent 30px), radial-gradient(circle at center center, #fff, #f6f6f6);
+      background: $appBG;
     }
     .img {
       text-align: center;
@@ -31,7 +32,9 @@ page-login {
     form {
 
       .forget-pass {
-        margin-top: -10px ;
+        margin-top: -10px;
+        margin-right: 5%;
+        padding-right: 0;
       }
       .clearfix {
         clear: both;

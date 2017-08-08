@@ -1,6 +1,12 @@
 import {Component, ElementRef, ViewChild} from '@angular/core';
 import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {GappProvider} from "../../providers/gappproviders";
+import {Geolocation} from "@ionic-native/geolocation";
+import "rxjs/add/operator/mergeMap";
+import {IuserLocData} from "../../app/config/appinterfaces";
+import {Http} from "@angular/http";
+import "rxjs/add/operator/pluck";
 
 /**
  * Generated class for the AddpharmacyPage page.
@@ -20,10 +26,14 @@ export class AddpharmacyPage {
   markers = [];
   AddPharmacyForm: FormGroup;
   showLoader: boolean = false;
+  userIpData: IuserLocData;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public formBuilder: FormBuilder,
-              public toastCtrl: ToastController
+              public toastCtrl: ToastController,
+              public mapsProvider: GappProvider,
+              public gelocation: Geolocation,
+              public http: Http
               ) {
     this.AddPharmacyForm = this.formBuilder.group({
       governorate: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -31,6 +41,7 @@ export class AddpharmacyPage {
       area: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       address: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       landmark: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      mobile: ['', Validators.compose([Validators.required, Validators.minLength(8),Validators.pattern('[0-9]+')])],
       pharmacyname: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       role: [0, Validators.compose([Validators.required])],
       personalid: ['', Validators.compose([Validators.required, Validators.minLength(12),Validators.pattern('[0-9]+')])],
@@ -42,7 +53,42 @@ export class AddpharmacyPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddpharmacyPage');
-    this.loadMap()
+
+    this.getLocation();
+
+  }
+
+  getLocation() {
+    this.gelocation.getCurrentPosition().then(({coords, timestamp})=> {
+      console.log(coords, timestamp);
+      this.loadMap(coords.latitude, coords.longitude);
+      this.getAddress(coords.latitude, coords.longitude);
+    },err=> {
+      console.log(err);
+      this.getUserLoc()
+    });
+  }
+
+  getUserLoc() {
+    this.mapsProvider.getUserIP().flatMap(({ip})=>{
+      return this.mapsProvider.getUserLocayionInfoByIp(ip)})
+      .subscribe((userData:IuserLocData)=>{
+        let latLng:any[] = userData.loc.split(',');
+        console.log('%c%s','font-size:25px', 'User location Info' );
+        console.group();
+        console.log(userData, latLng);
+        this.loadMap(...latLng);
+        this.userIpData = userData;
+        this.userIpData.latitude = userData.loc.split(',')[0];
+        this.userIpData.longitude = userData.loc.split(',')[0];
+        this.AddPharmacyForm.get('governorate').setValue(this.userIpData.region);
+        this.AddPharmacyForm.get('city').setValue(this.userIpData.city);
+
+      },err=>{
+        console.warn(err);
+        console.warn('%c%s', 'font-size:25px', 'Error Getting user Location')
+      })
+
   }
 
   submitForm() {
@@ -56,14 +102,14 @@ export class AddpharmacyPage {
 
   }
 
-  loadMap(latitude = 37.755530, longitude =12.493896) {
+  loadMap(latitude = 31.20186325, longitude =29.90578294) {
 
     //30.078462054468716,30.078462054468716
     /*console.log('load map with latlng', latitude, longitude);
     if (!latitude && !longitude) {
       [latitude, longitude] = [(this.userLocal.latitude) ? this.userLocal.latitude : this.modalData.latitude, (this.userLocal.longitude) ? this.userLocal.longitude : this.modalData.longitude];
     }*/
-
+    console.log('latitude, longitude', latitude, longitude);
 
     let latLng = new google.maps.LatLng(latitude, longitude);
 
@@ -124,6 +170,28 @@ export class AddpharmacyPage {
 
   }
 
+  getAddress(latitude, longitude) {
+
+    let geocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?latlng=' + latitude + ',' + longitude + '&key=AIzaSyBL9-cIsQpwffcZ5NCHEuHilTG_7sEhSXg';
+    this.http.get(geocodeUrl)
+      .map(res => res.json())
+      .pluck('results')
+      .subscribe(
+        result => {
+          //[0].formatted_address
+          console.log('response from geocoding', result[2].formatted_address);
+          let [city, governorate, country] = result[2].formatted_address.split(',');
+          let [area] = result[1].formatted_address.split(',');
+
+          this.AddPharmacyForm.get('governorate').setValue(governorate);
+          this.AddPharmacyForm.get('city').setValue(city);
+          this.AddPharmacyForm.get('area').setValue(area);
+
+        },
+        err => {
+          console.warn(err);
+        });
+  }
 
   detectFormErrors(form) {
 

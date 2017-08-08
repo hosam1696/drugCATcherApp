@@ -6,6 +6,10 @@ import { MyApp } from './app.component';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { GappProvider } from '../providers/gappproviders';
+
+import  { Geolocation} from "@ionic-native/geolocation"
+import {HttpModule} from "@angular/http";
 
 @NgModule({
   declarations: [
@@ -13,6 +17,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     ReactiveFormsModule,
     IonicModule.forRoot(MyApp, {
       backButtonText: '',
@@ -28,7 +33,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatusBar,
     SplashScreen,
 
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    GappProvider,
+    Geolocation
   ]
 })
 export class AppModule {}
