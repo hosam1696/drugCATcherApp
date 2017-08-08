@@ -26,14 +26,14 @@ export class AddpharmacyPage {
               public toastCtrl: ToastController
               ) {
     this.AddPharmacyForm = this.formBuilder.group({
-      government: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      governorate: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       city: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       area: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       address: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       landmark: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       pharmacyname: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       role: [0, Validators.compose([Validators.required])],
-      personalid: ['', Validators.compose([Validators.required, Validators.minLength(4),Validators.pattern('[0-9]+')])],
+      personalid: ['', Validators.compose([Validators.required, Validators.minLength(12),Validators.pattern('[0-9]+')])],
       reg_num: ['', Validators.compose([Validators.required, Validators.minLength(4),Validators.pattern('[0-9]+')])],
       syndicate_num: ['', Validators.compose([Validators.required, Validators.minLength(4),Validators.pattern('[0-9]+')])],
     })

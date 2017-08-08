@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, IonicPage } from 'ionic-angular';
+import {NavController, IonicPage, ViewController} from 'ionic-angular';
 @IonicPage()
 @Component({
   selector: 'page-home',
@@ -7,8 +7,12 @@ import { NavController, IonicPage } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController,
+              public viewCtrl: ViewController) {
 
   }
-
+  ionViewDidLoad() {
+    console.log(this.viewCtrl);
+    console.log(this.viewCtrl.name);
+  }
 }

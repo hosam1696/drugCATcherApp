@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import {AlertController, AlertOptions, Nav, Platform} from 'ionic-angular';
+import {AlertController, AlertOptions, Nav, Platform, ViewController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -44,6 +44,7 @@ export class MyApp {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+
   }
 
   openPage(page) {
