@@ -14,7 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'history.html',
 })
 export class HistoryPage {
-
+  showLoader: boolean = true;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 

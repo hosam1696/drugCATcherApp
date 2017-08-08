@@ -18,12 +18,17 @@
       <p class="email">drug.catcher@outlook.com</p>
     </div>
 
-    <ion-list>
+    <ion-list class="side-menu">
       <ion-list-header text-center color="primary">
           pharmacy code: 516489449
       </ion-list-header>
       <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        <ion-icon name="ios-baseball-outline"></ion-icon>&nbsp; {{p.title}}
+
+        <img *ngIf="p.icon" [src]="'assets/icons/'+p.icon" width="30" alt="">
+
+        <ion-icon *ngIf="!p.icon" name="ios-home-outline" margin-left></ion-icon>
+
+        <span>{{p.title}}</span>
 
         <ion-badge *ngIf="p.badge" item-right  class="rounded">53</ion-badge>
       </button>

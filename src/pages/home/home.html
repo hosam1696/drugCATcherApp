@@ -22,20 +22,26 @@
   <!--<button ion-button secondary menuToggle>Toggle Menu</button>-->
 
 
-  <ion-card>
+  <ion-card (click)="showRequestOptions()">
     <ion-card-header>
       <h2>Congestal 500mg 10Tab 1Strib</h2>
     </ion-card-header>
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">0.5 K.M</span>
+          <!--<img src="assets/icons/map-copy-2.png" class="icon-smaller " width="15" alt="">-->
+          <ion-icon class="loc" name="ios-pin-outline" color="primary"></ion-icon> &nbsp;
+          <span class="req-value">0.5 K.M</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">10-7</span>
+          <img src="assets/icons/date.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">10-7</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">10</span>
+          <img src="assets/icons/box-copy-2.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">10</span>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -48,14 +54,21 @@
 
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">40 %</span>
+          <img src="assets/icons/sale.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">40 %</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">13 LE</span>
+          <img src="assets/icons/price_icon_6.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">13 LE</span>
         </ion-col>
       </ion-row>
     </ion-grid>
+    <button type="button" class="card-options" [hidden]="testHide" (click)="navigateToPage('AddrequestPage', 'pageData')">
+      <img src="assets/icons/check-request.png" width="60" alt="">
+    </button>
   </ion-card>
+
 
   <ion-card>
     <ion-card-header>
@@ -64,13 +77,19 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">0.5 K.M</span>
+          <img src="assets/icons/map-copy-2.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">0.5 K.M</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">10-7</span>
+          <img src="assets/icons/date.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">10-7</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">10</span>
+          <img src="assets/icons/box-copy-2.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">10</span>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -83,45 +102,13 @@
 
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">40 %</span>
+          <img src="assets/icons/sale.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">40 %</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">13 LE</span>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      <h2>Congestal 500mg 10Tab 1Strib</h2>
-    </ion-card-header>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">0.5 K.M</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">10-7</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">10</span>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-icon name="star" color="primary"></ion-icon>
-          <ion-icon name="star-outline" color="primary"></ion-icon>
-          <ion-icon name="star-outline" color="primary"></ion-icon>
-          <ion-icon name="star-outline" color="primary"></ion-icon>
-          <ion-icon name="star-outline" color="primary"></ion-icon>
-
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">40 %</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">13 LE</span>
+          <img src="assets/icons/price_icon_6.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">13 LE</span>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -135,13 +122,19 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">0.5 K.M</span>
+          <img src="assets/icons/map-copy-2.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">0.5 K.M</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">10-7</span>
+          <img src="assets/icons/date.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">10-7</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">10</span>
+          <img src="assets/icons/box-copy-2.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">10</span>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -154,10 +147,13 @@
 
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">40 %</span>
+          <img src="assets/icons/sale.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">40 %</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">13 LE</span>
+          <img src="assets/icons/price_icon_6.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">13 LE</span>
         </ion-col>
       </ion-row>
     </ion-grid>
@@ -170,13 +166,19 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">0.5 K.M</span>
+          <img src="assets/icons/map-copy-2.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">0.5 K.M</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">10-7</span>
+          <img src="assets/icons/date.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">10-7</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">10</span>
+          <img src="assets/icons/box-copy-2.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">10</span>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -189,14 +191,18 @@
 
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">40 %</span>
+          <img src="assets/icons/sale.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">40 %</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">13 LE</span>
+          <img src="assets/icons/price_icon_6.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">13 LE</span>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>
+
 
   <ion-card>
     <ion-card-header>
@@ -205,13 +211,19 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">0.5 K.M</span>
+          <img src="assets/icons/map-copy-2.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">0.5 K.M</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">10-7</span>
+          <img src="assets/icons/date.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">10-7</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">10</span>
+          <img src="assets/icons/box-copy-2.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">10</span>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -224,14 +236,18 @@
 
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">40 %</span>
+          <img src="assets/icons/sale.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">40 %</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">13 LE</span>
+          <img src="assets/icons/price_icon_6.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">13 LE</span>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>
+
 
   <ion-card>
     <ion-card-header>
@@ -240,13 +256,19 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">0.5 K.M</span>
+          <img src="assets/icons/map-copy-2.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">0.5 K.M</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">10-7</span>
+          <img src="assets/icons/date.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">10-7</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">10</span>
+          <img src="assets/icons/box-copy-2.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">10</span>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -259,48 +281,15 @@
 
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">40 %</span>
+          <img src="assets/icons/sale.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <span class="req-value">40 %</span>
         </ion-col>
         <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">13 LE</span>
+          <img src="assets/icons/price_icon_6.png" width="15" alt="">
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">13 LE</span>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>
-
-  <ion-card>
-    <ion-card-header>
-      <h2>Congestal 500mg 10Tab 1Strib</h2>
-    </ion-card-header>
-    <ion-grid>
-      <ion-row>
-        <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">0.5 K.M</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">10-7</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">10</span>
-        </ion-col>
-      </ion-row>
-      <ion-row>
-        <ion-col>
-          <ion-icon name="star" color="primary"></ion-icon>
-          <ion-icon name="star-outline" color="primary"></ion-icon>
-          <ion-icon name="star-outline" color="primary"></ion-icon>
-          <ion-icon name="star-outline" color="primary"></ion-icon>
-          <ion-icon name="star-outline" color="primary"></ion-icon>
-
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">40 %</span>
-        </ion-col>
-        <ion-col>
-          <ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;<span class="req-value">13 LE</span>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card>
-
 </ion-content>

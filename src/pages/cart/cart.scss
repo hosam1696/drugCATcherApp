@@ -1,3 +1,10 @@
 page-cart {
 
+
+  ion-content {
+    &.content {
+      background: $appBG;
+    }
+
+  }
 }

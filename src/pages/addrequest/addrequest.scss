@@ -1,0 +1,77 @@
+page-addrequest {
+  .toolbar-title {
+    text-align: center;
+    color: #fff !important;
+    letter-spacing: 2px;
+  }
+
+  ion-content {
+    &.content {
+      background: $appBG;
+    }
+    ion-grid {
+      img {
+        display: inline !important;
+        width: 20px !important;
+        margin-right: 5px;
+        &.icon-smaller {
+
+          width: 16px !important;
+
+        }
+      }
+    }
+
+    ion-card {
+      &:first-child {
+        margin: 0 !important;
+        width: 100%;
+        box-shadow: none !important;
+        border-bottom: 1px solid #f4f4f4;
+      }
+      &.item-requested {
+        position: relative;
+        text-align: center;
+        flex-direction: column;
+        min-height: 50%;
+        .input-title {
+          margin-top: 10px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          img {
+            width: 50px !important;
+          }
+          h2 {
+            color: $primary;
+            font-size: 1.8rem
+          }
+        }
+        .input {
+          margin: 15px auto;
+          input {
+            background-color: #eee;
+            border:none;
+            height: 45px;
+            border-bottom: 2px solid $primary;
+            //width: 40%;
+          }
+        }
+        .request-ctrl {
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          display: flex;
+          flex-direction: row-reverse;
+          width: 100%;
+          button {
+            width: 50%;
+            margin: 0 !important;
+
+          }
+        }
+      }
+    }
+
+  }
+}

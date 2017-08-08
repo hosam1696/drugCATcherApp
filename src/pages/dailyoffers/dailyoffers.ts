@@ -14,12 +14,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'dailyoffers.html',
 })
 export class DailyoffersPage {
-
+  showLoader: boolean = true;
+  noOffers: boolean = false;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad DailyoffersPage');
+    setTimeout(()=> {
+      this.showLoader = false;
+      this.noOffers = true;
+    }, 2000)
+  }
+
+  navigateTo(page) {
+    this.navCtrl.push(page);
   }
 
 }

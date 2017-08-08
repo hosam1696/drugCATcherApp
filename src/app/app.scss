@@ -26,7 +26,14 @@ $appBG: repeating-linear-gradient(45deg, #f8f8f8, #f8f8f8 1px, transparent 1px, 
   font-weight: normal;
   font-style: normal;
 }
-
+.app-msg {
+  position: absolute;
+  top: 48%;
+  width: 100%;
+  text-align: center;
+  font-size: 1.8rem;
+  color: #555;
+}
 ion-list-header {
  min-height: 10px !important;
   margin: 0;
@@ -38,6 +45,24 @@ ion-list-header {
   font-family: "Roboto-Regular", sans-serif;
 }
 
+
+ion-list {
+  &.side-menu{
+    ion-label {
+      display: flex;
+      /* line-height: 7px; */
+      align-items: center;
+      img {
+        margin-left: 10px;
+        margin-right: 5px
+      }
+      ion-icon {
+        font-size: 28px;
+        margin-right: 10px
+      }
+    }
+  }
+}
 
 .item-inner {
   border-bottom : none !important

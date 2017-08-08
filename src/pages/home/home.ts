@@ -6,7 +6,7 @@ import {NavController, IonicPage, ViewController} from 'ionic-angular';
   templateUrl: 'home.html'
 })
 export class HomePage {
-
+  testHide = true;
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController) {
 
@@ -14,5 +14,13 @@ export class HomePage {
   ionViewDidLoad() {
     console.log(this.viewCtrl);
     console.log(this.viewCtrl.name);
+  }
+
+  showRequestOptions() {
+    this.testHide = !this.testHide;
+  }
+
+  navigateToPage(page, pageData) {
+    this.navCtrl.push(page, {pageData});
   }
 }

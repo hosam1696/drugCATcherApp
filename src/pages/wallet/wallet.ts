@@ -14,7 +14,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'wallet.html',
 })
 export class WalletPage {
-
+  showLoader: boolean = true;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 

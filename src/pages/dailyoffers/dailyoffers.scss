@@ -1,3 +1,15 @@
 page-dailyoffers {
 
+  ion-content {
+    &.content {
+      background: $appBG
+    }
+    ion-fab {
+      button {
+        width: 55px !important;
+        height: 55px !important;
+        border-radius: 50% !important;
+      }
+    }
+  }
 }

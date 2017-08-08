@@ -14,7 +14,7 @@ export class MyApp {
 
   rootPage: any = 'LoginPage';
 
-  pages: Array<{title: string, component: any, badge?:boolean}>;
+  pages: Array<{title: string, component: any, badge?:boolean, icon?:string}>;
 
   constructor(public platform: Platform,
               public statusBar: StatusBar,
@@ -26,13 +26,13 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Home', component:'HomePage'},
-      { title: 'Daily Offers', component: 'DailyoffersPage', badge: true },
-      { title: 'Cart', component: 'CartPage' ,badge: true },
-      {title: 'History', component: 'HistoryPage', badge: true },
-      {title: 'Wallet', component: 'WalletPage'},
-      {title: 'Pharmacy Profile', component: 'PharmacyprofilePage'},
-      {title: 'User Profile', component: 'UserprofilePage'},
-      {title: 'Sign Out', component: 'LoginPage'}
+      { title: 'Daily Offers', component: 'DailyoffersPage', badge: true, icon:'daily-offers.png' },
+      { title: 'Cart', component: 'CartPage' ,badge: true, icon:'cart-in-menu.png' },
+      {title: 'History', component: 'HistoryPage', badge: true, icon:'history.png' },
+      {title: 'Wallet', component: 'WalletPage', icon:'wallet.png'},
+      {title: 'Pharmacy Profile', component: 'PharmacyprofilePage', icon:'pharmacyprofile.png'},
+      {title: 'User Profile', component: 'UserprofilePage', icon:'userprofile.png'},
+      {title: 'Sign Out', component: 'LoginPage', icon:'sign-out.png'}
     ];
 
   }

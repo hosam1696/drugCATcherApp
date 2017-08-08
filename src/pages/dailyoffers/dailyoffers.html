@@ -21,4 +21,15 @@
 
 <ion-content padding>
 
+  <p text-center class="app-msg" *ngIf="noOffers">
+    No Offers
+  </p>
+  <p text-center class="app-msg" *ngIf="showLoader">
+    <ion-spinner color="primary" name="crescent"></ion-spinner>
+  </p>
+  <ion-fab right bottom (click)="navigateTo('AddofferPage')">
+    <button  ion-fab >
+      <ion-icon name="add" ></ion-icon>
+    </button>
+  </ion-fab>
 </ion-content>
