@@ -10,6 +10,10 @@ page-addrequest {
       background: $appBG;
     }
     ion-grid {
+      ion-col {
+            display: flex;
+    align-items: center;
+      }
       img {
         display: inline !important;
         width: 20px !important;
@@ -21,7 +25,12 @@ page-addrequest {
         }
       }
     }
+.req-value {
+        font-weight: bolder;
+        color: #777;
 
+        font-size: 1.6rem;
+      }
     ion-card {
       &:first-child {
         margin: 0 !important;
@@ -29,6 +38,7 @@ page-addrequest {
         box-shadow: none !important;
         border-bottom: 1px solid #f4f4f4;
       }
+      margin: 16px auto !important;
       &.item-requested {
         position: relative;
         text-align: center;
@@ -54,6 +64,10 @@ page-addrequest {
             border:none;
             height: 45px;
             border-bottom: 2px solid $primary;
+                padding: 5px;
+    font-size: 20px;
+    width: 45%;
+    text-align: center;
             //width: 40%;
           }
         }

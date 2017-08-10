@@ -4,7 +4,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {GappProvider} from "../../providers/gappproviders";
 import {Geolocation} from "@ionic-native/geolocation";
 import "rxjs/add/operator/mergeMap";
-import {IuserLocData} from "../../app/config/appinterfaces";
+import { IuserLocData, IEnAddPharmacy } from "../../app/config/appinterfaces";
 import {Http} from "@angular/http";
 import "rxjs/add/operator/pluck";
 
@@ -41,11 +41,11 @@ export class AddpharmacyPage {
       area: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       address: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       landmark: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      mobile: ['', Validators.compose([Validators.required, Validators.minLength(8),Validators.pattern('[0-9]+')])],
       pharmacyname: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      mobile: ['', Validators.compose([Validators.required, Validators.minLength(8),Validators.pattern('[0-9]+')])],
+      reg_num: ['', Validators.compose([Validators.required, Validators.minLength(4),Validators.pattern('[0-9]+')])],
       role: [0, Validators.compose([Validators.required])],
       personalid: ['', Validators.compose([Validators.required, Validators.minLength(12),Validators.pattern('[0-9]+')])],
-      reg_num: ['', Validators.compose([Validators.required, Validators.minLength(4),Validators.pattern('[0-9]+')])],
       syndicate_num: ['', Validators.compose([Validators.required, Validators.minLength(4),Validators.pattern('[0-9]+')])],
     })
 
@@ -96,6 +96,11 @@ export class AddpharmacyPage {
 
     if (this.AddPharmacyForm.valid) {
       console.log('%c%s','font-size:30px;color:#2196f3','sign up form is valid');
+      this.showToast('you have added a pharmacy..')
+      setTimeout(()=>{
+        this.navCtrl.setRoot('HomePage');
+       // this.navCtrl.push('HomePage');
+      }, 1500)
     } else {
       this.detectFormErrors(this.AddPharmacyForm);
     }
@@ -203,18 +208,18 @@ export class AddpharmacyPage {
       //console.log('form Key',formKey);
 
       if (form.get(formKey).getError('required')) {
-        this.showToast('Fill '+ formKey.toUpperCase() + ' please');
+        this.showToast('Fill '+ IEnAddPharmacy[formKey] + ' please');
+        break;
+      }else if (form.get(formKey).getError('pattern')) {
+
+        this.showToast(IEnAddPharmacy[formKey]+' must be in numbers');
+
         break;
       } else if (form.get(formKey).getError('minlength')) {
-        this.showToast(formKey.toUpperCase()+' must be  '+ form.get(formKey).getError('minlength').requiredLength + ' characters at least');
+        this.showToast(IEnAddPharmacy[formKey]+' must be  '+ form.get(formKey).getError('minlength').requiredLength + ' characters at least');
         break;
-      } else if (form.get(formKey).getError('pattern')) {
-
-        this.showToast(formKey+' must be in numbers');
-
-        break;
-      } else if (form.get(formKey).getError('email')) {
-        this.showToast( formKey + ' must be at form [example]@[example].com');
+      }  else if (form.get(formKey).getError('email')) {
+        this.showToast( IEnAddPharmacy[formKey] + ' must be at form [example]@[example].com');
         break;
       } else if (form.get(formKey).getError('notAgreed')) {
         this.showToast('you have to read the terms and conditions');

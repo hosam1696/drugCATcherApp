@@ -60,7 +60,7 @@ export class LoginPage {
       //console.log('form Key',formKey);
 
       if (form.get(formKey).getError('required')) {
-        this.showToast('fill the '+ formKey.toUpperCase()+ ' please');
+        this.showToast('Fill the '+ formKey.toUpperCase()+ ' please');
         break;
       } else if (form.get(formKey).getError('minlength')) {
         this.showToast(formKey.toUpperCase()+' must be  '+ form.get(formKey).getError('minlength').requiredLength + ' characters at least');
