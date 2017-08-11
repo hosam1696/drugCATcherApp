@@ -1,5 +1,17 @@
 page-dailyoffers {
-
+  ion-header {
+    ion-buttons {
+      display: flex;
+      align-items: center;
+      img {
+        margin-right: 6px;
+      }
+      ion-icon {
+        font-size: 35px;
+        margin: 0 15px;
+      }
+    }
+  }
   ion-content {
     &.content {
       background: $appBG
@@ -9,6 +21,89 @@ page-dailyoffers {
         width: 55px !important;
         height: 55px !important;
         border-radius: 50% !important;
+      }
+    }
+
+    ion-card {
+      ion-icon {
+        &.loc {
+          font-size: 22px;
+          margin-right: 3px;
+        }
+
+      }
+      h2 {
+        display: flex;
+        justify-content: space-between;
+        padding: 15px 10px 5px;
+        font-size: 1.9rem;
+      }
+      ion-grid {
+        img {
+          display: inline !important;
+          width: 20px !important;
+          margin-right: 5px;
+          &.icon-smaller {
+
+            width: 16px !important;
+
+          }
+        }
+      }
+
+
+      .card-options {
+        width: 100%;
+        height: 75px;
+        background-color: $primary;
+        display: flex;
+        justify-content: center;
+        padding: 5px 0;
+        button {
+          text-align: center;
+          width: 50%;
+          background: transparent;
+          img {
+            display: inline;
+            width: 50px !important;
+          }
+          &:first-child {
+            border-right: 2px solid #cce7b6;
+            .img-wrap {
+              display: inline-block;
+              height: 45px;
+              width: 45px;
+              padding: 10px;
+              border-radius: 50%;
+              border: 2px solid #cce7b6;
+              img {
+                width: 50px !important;
+              }
+            }
+            
+          }
+        }
+        
+      }
+      &.card-md {
+        width: 100%;
+        margin :2px auto  10px !important;
+        box-shadow: none;
+        border-bottom: 1px solid #eee;
+        border-top: 1px solid #eee;
+        
+      }
+
+      .req-value {
+        font-weight: bolder;
+        color: #777;
+
+        font-size: 1.6rem;
+      }
+      ion-col {
+        display: flex;
+        align-items: center;
+
       }
     }
   }

@@ -7,12 +7,71 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Add Offer</ion-title>
+    <ion-title>{{pageType || 'Add'}} Offer</ion-title>
+    <ion-buttons start>
+      <!--<ion-icon name="search" color="light"></ion-icon>-->
+      <img src="assets/img/cat.png" alt="cat image" width="30">
+
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding-horizontal>
+  <ion-card no-margin margin-top>
+    
+    <div class="drug-name">
+      <input type="text" placeholder="Drug name"> 
+    </div>
 
+    <ion-grid>
+      <ion-row>
+        <ion-col>
+            <img src="assets/icons/box-copy-2.png" alt="">
+            <div class="input">
+                
+                <input type="number" min="0" value="0" class="form-control">
+              </div>
+        </ion-col>
+        
+        <ion-col>
+            <img src="assets/icons/date.png" width="15" alt="">
+            <div class="input">
+                <ion-datetime value="1997-07" pickerFormat="MMMM YYYY" displayFormat="MM/YY">
+                </ion-datetime>  
+              </div>
+          </ion-col>  
+      </ion-row>  
+      <ion-row>
+          <ion-col>
+              <img src="assets/icons/sale.png" width="15" alt="">
+              <div class="input">
+                  
+                  <input type="number" min="0" value="0"  class="form-control">
+                </div>
+          </ion-col>
+          
+          <ion-col>
+              <img src="assets/icons/price_icon_6.png" width="15" alt="">
+              <div class="input">
+                  <input type="text" class="form-control">
+                </div>
+            </ion-col>  
+        </ion-row> 
+    </ion-grid>  
+    
+    <div class="offer-btns">
+        <button type="button" ion-button outline (click)="cancelOffer()">
+            Cancel
+          </button>
+      <button type="button" ion-button (click)="AddOffer()">
+          {{pageType || 'Add'}}  &nbsp;
+      <ion-spinner name="crescent" *ngIf="showLoader">
+
+      </ion-spinner>
+      </button>
+      
+    </div>
+  </ion-card>  
 </ion-content>

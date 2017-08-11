@@ -9,6 +9,21 @@ page-addrequest {
     &.content {
       background: $appBG;
     }
+    ion-spinner {
+      width: 15px;
+      height: 15px;
+       * {
+         stroke : #fff !important
+       }
+    }
+
+    ion-icon {
+      &.loc {
+        font-size: 22px;
+        margin-right: 3px;
+      }
+
+    }
     ion-grid {
       ion-col {
             display: flex;

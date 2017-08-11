@@ -6,24 +6,24 @@
 -->
 <ion-header>
 
-  <ion-navbar color="primary">
-
-    <ion-title>Wallet</ion-title>
-    <ion-buttons end>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
-    </ion-buttons>
-  </ion-navbar>
+    <ion-navbar color="primary">
+        <button ion-button menuToggle>
+          <ion-icon name="menu"></ion-icon>
+        </button>
+        <ion-title>Wallet</ion-title>
+        <ion-buttons start>
+          <!--<ion-icon name="search" color="light"></ion-icon>-->
+          <img src="assets/img/cat.png" alt="cat image" width="30">
+    
+        </ion-buttons>
+      </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <p text-center class="app-msg" *ngIf="noOffers">
-    No Offers
-  </p>
-  <p text-center class="app-msg" *ngIf="showLoader">
-    <ion-spinner color="primary" name="crescent"></ion-spinner>
-  </p>
+<ion-content padding-horizontal>
+
+  <ion-card no-margin >
+    
+  </ion-card>  
 </ion-content>

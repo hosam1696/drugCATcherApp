@@ -14,12 +14,28 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'addoffer.html',
 })
 export class AddofferPage {
-
+  showLoader: boolean = false;
+  pageType;
+  dateNow =  new Date(Date.now()).toLocaleDateString();
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+    this.pageType = this.navParams.get('pageData');
+
+    console.log(this.pageType);
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddofferPage');
+    this.dateNow = new Date(Date.now()).toDateString();
+  }
+
+  AddOffer() {
+    this.showLoader = true;
+  }
+
+  cancelOffer() {
+    this.navCtrl.pop();
   }
 
 }

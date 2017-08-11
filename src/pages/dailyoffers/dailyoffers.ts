@@ -16,6 +16,8 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 export class DailyoffersPage {
   showLoader: boolean = true;
   noOffers: boolean = false;
+  testHide: boolean = true;
+  AllOffers: any = false;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
@@ -23,12 +25,26 @@ export class DailyoffersPage {
     console.log('ionViewDidLoad DailyoffersPage');
     setTimeout(()=> {
       this.showLoader = false;
-      this.noOffers = true;
-    }, 2000)
+      this.AllOffers = true;
+      //this.noOffers = true;
+    }, 1000)
+  }
+
+  deleteOffer() {
+    console.log('you are about to delete this offer');
+  }
+
+  editOffer() {
+    console.log('you are about to edit this offer');
+    this.navCtrl.push('AddofferPage',{pageData:'edit'});
   }
 
   navigateTo(page) {
     this.navCtrl.push(page);
+  }
+
+  showOfferOptions() {
+    this.testHide = !this.testHide;
   }
 
 }

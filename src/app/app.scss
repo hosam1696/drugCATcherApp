@@ -27,12 +27,14 @@ $appBG: repeating-linear-gradient(45deg, #f8f8f8, #f8f8f8 1px, transparent 1px, 
   font-style: normal;
 }
 .app-msg {
-  position: absolute;
+  position: relative;
   top: 48%;
   width: 100%;
   text-align: center;
   font-size: 1.8rem;
   color: #555;
+    margin-top: 0;
+  
 }
 ion-list-header {
  min-height: 10px !important;

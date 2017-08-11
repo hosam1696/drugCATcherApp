@@ -26,8 +26,8 @@
     <ion-grid>
       <ion-row>
         <ion-col>
-          <img src="assets/icons/map-copy-2.png" width="15" alt="">
-          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
+          <!--<img src="assets/icons/map-copy-2.png" class="icon-smaller " width="15" alt="">-->
+          <ion-icon class="loc" name="ios-pin-outline" color="primary"></ion-icon> &nbsp;
           <span class="req-value">0.5 K.M</span>
         </ion-col>
         <ion-col>
@@ -69,10 +69,13 @@
       <h2>Requested</h2>
     </div>
     <div class="input">
-      <input type="text" class="form-control" #RQ (input)="keepItNumber(RQ.value)">
+      <input type="number" class="form-control" #RQ (input)="keepItNumber(RQ.value)">
     </div>
     <div class="request-ctrl">
-      <button type="button" class = 'float-btn' ion-button (click)="addRequest()">Request</button>
+      <button type="button" class = 'float-btn' ion-button (click)="addRequest(RQ.value)">Request
+
+        <ion-spinner *ngIf="showLoader" name="crescent"></ion-spinner>   
+      </button>
       <button type="button"  class = 'float-btn' ion-button outline (click)="navigateTo(null)" >Cancel</button>
     </div>
   </ion-card>

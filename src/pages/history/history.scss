@@ -1,5 +1,17 @@
 page-history {
-
+  ion-header {
+    ion-buttons {
+      display: flex;
+      align-items: center;
+      img {
+        margin-right: 6px;
+      }
+      ion-icon {
+        font-size: 35px;
+        margin: 0 15px;
+      }
+    }
+  }
 
   ion-content {
     background: $appBG;

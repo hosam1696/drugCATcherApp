@@ -30,11 +30,13 @@ export class MyApp {
       { title: 'Cart', component: 'CartPage' ,badge: true, icon:'cart-in-menu.png' },
       {title: 'History', component: 'HistoryPage', badge: true, icon:'history.png' },
       {title: 'Wallet', component: 'WalletPage', icon:'wallet.png'},
-      {title: 'Pharmacy Profile', component: 'PharmacyprofilePage', icon:'pharmacyprofile.png'},
-      {title: 'User Profile', component: 'UserprofilePage', icon:'userprofile.png'},
+      
       {title: 'Sign Out', component: 'LoginPage', icon:'sign-out.png'}
     ];
-
+/*
+{title: 'Pharmacy Profile', component: 'PharmacyprofilePage', icon:'pharmacyprofile.png'},
+      {title: 'User Profile', component: 'UserprofilePage', icon:'userprofile.png'},
+*/
   }
 
   initializeApp() {

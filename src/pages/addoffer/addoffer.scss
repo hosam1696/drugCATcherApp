@@ -4,4 +4,90 @@ page-addoffer {
     color: #fff !important;
     letter-spacing: 2px;
   }
+  ion-content {
+    &.content {
+      background: $appBG;
+    }
+    input {
+      &::placeholder {
+        color: #B1B1B1
+      }
+    }
+    ion-spinner {
+      width: 15px;
+      height: 15px;
+       * {
+         stroke : #fff !important
+       }
+    }
+    ion-card {
+      box-shadow: none !important;
+      border: 1px solid #eee;
+      width: auto !important;
+      .drug-name {
+        padding: 15px;
+        text-align: center;
+        input {
+          background-color: #eee;
+          border: none;
+          height: 45px;
+          color: #666;
+          border-bottom: 2px solid $primary;
+          padding: 5px;
+          font-size: 20px;
+          width: 90%;
+        }
+      }
+      ion-grid {
+        ion-col {
+          display: flex;
+          align-items: center;
+          
+          .input {
+            margin: 15px auto 15px 7px;
+            input {
+              background-color: #eee;
+              border: none;
+              height: 45px;
+              color: #666;
+              border-bottom: 2px solid $primary;
+              padding: 5px;
+              font-size: 20px;
+              width: 90%;
+              
+              //text-align: center; //width: 40%;
+            }
+          }
+          ion-datetime {
+            position: relative;background-color: #eee;
+            border: none;
+            height: 45px;
+            color: #666;
+            border-bottom: 2px solid $primary;
+            //padding: 5px;
+            //font-size: 20px;
+            min-width:  60px !important;
+            width: 155% !important;
+            text-align: center;
+            
+          }
+          img {
+            
+            width: 35px !important;
+            height: 35px !important //  display: inline;
+          }
+        }
+      }
+
+      .offer-btns {
+        margin-top: 40px;
+        display: flex;
+        justify-content: center;
+        button {
+          width: 50%;
+          margin: 0;
+        }
+      }
+    }
+  }
 }

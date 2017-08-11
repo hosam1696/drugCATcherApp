@@ -7,12 +7,14 @@
 <ion-header>
 
   <ion-navbar color="primary">
-
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Cart</ion-title>
     <ion-buttons start>
-      <button ion-button menuToggle>
-        <ion-icon name="menu"></ion-icon>
-      </button>
+      <!--<ion-icon name="search" color="light"></ion-icon>-->
+      <img src="assets/img/cat.png" alt="cat image" width="30">
+
     </ion-buttons>
   </ion-navbar>
 
@@ -20,10 +22,64 @@
 
 
 <ion-content padding>
-  <p text-center class="app-msg" *ngIf="noOffers">
-    No Offers
-  </p>
-  <p text-center class="app-msg" *ngIf="showLoader">
-    <ion-spinner color="primary" name="crescent"></ion-spinner>
-  </p>
+    <ion-list>
+
+        <ion-item margin-bottom color="primary">
+            <ion-avatar item-left>
+              <img src="assets/icons/offerdelivery.png">
+            </ion-avatar>  
+            <h2>Congestal 500mg 10Tab 1Strib</h2> 
+            <button ion-button clear item-right>
+                <ion-icon name="ios-arrow-forward"></ion-icon>  
+            </button>  
+          </ion-item> 
+        <ion-item margin-bottom>
+          <ion-avatar item-left>
+            <img src="assets/icons/request delivery.png">
+          </ion-avatar>  
+          <h2>Congestal 500mg 10Tab 1Strib</h2> 
+          <button ion-button clear item-right>
+              <ion-icon name="ios-arrow-forward"></ion-icon>  
+          </button>  
+        </ion-item>  
+        <ion-item margin-bottom>
+            <ion-avatar item-left>
+              <img src="assets/icons/request delivery.png">
+            </ion-avatar>  
+            <h2>Congestal 500mg 10Tab 1Strib</h2> 
+            <button ion-button clear item-right>
+                <ion-icon name="ios-arrow-forward"></ion-icon>  
+            </button>  
+          </ion-item> 
+    
+          <ion-item margin-bottom color="lightDark">
+              <ion-avatar item-left>
+                <img src="assets/icons/pending offer.png">
+              </ion-avatar>  
+              <h2>Congestal 500mg 10Tab 1Strib</h2> 
+              <button ion-button clear item-right>
+                  <ion-icon name="ios-arrow-forward"></ion-icon>  
+              </button>  
+            </ion-item> 
+    
+            <ion-item margin-bottom color="primary">
+                <ion-avatar item-left>
+                  <img src="assets/icons/offerdelivery.png">
+                </ion-avatar>  
+                <h2>Congestal 500mg 10Tab 1Strib</h2> 
+                <button ion-button clear item-right>
+                    <ion-icon name="ios-arrow-forward"></ion-icon>  
+                </button>  
+              </ion-item> 
+    
+              <ion-item margin-bottom>
+                  <ion-avatar item-left>
+                    <img src="assets/icons/canceled offers.png">
+                  </ion-avatar>  
+                  <h2>Congestal 500mg 10Tab 1Strib</h2> 
+                  <button ion-button clear item-right>
+                      <ion-icon name="ios-arrow-forward"></ion-icon>  
+                  </button>  
+                </ion-item> 
+      </ion-list>  
 </ion-content>
