@@ -33,6 +33,25 @@ page-addpharmacy {
     #map {
       height: 200px !important;
     }
+    &.content {
+      background: $appBG;
+    }
+    ion-select {
+      &.mobile-select {
+        position: relative;
+      }
+      border-bottom: 2px solid $primary;
+        background-color: #eee;
+      border-right:2px solid #ccc;
+      .select-icon {
+        visibility: hidden;
+
+      }
+      .select-text {
+        overflow: visible;
+      }
+
+    }
     button {
       font-size: 2rem;
       LETTER-SPACING: 2PX;

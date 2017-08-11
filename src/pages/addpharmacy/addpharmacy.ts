@@ -1,11 +1,12 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {GappProvider} from "../../providers/gappproviders";
-import {Geolocation} from "@ionic-native/geolocation";
+import { AppProv } from './../../app/config/appprov';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { GappProvider } from "../../providers/gappproviders";
+import { Geolocation } from "@ionic-native/geolocation";
 import "rxjs/add/operator/mergeMap";
-import { IuserLocData, IEnAddPharmacy } from "../../app/config/appinterfaces";
-import {Http} from "@angular/http";
+import { IuserLocData, IEnFormControls } from "../../app/config/appinterfaces";
+import { Http } from "@angular/http";
 import "rxjs/add/operator/pluck";
 
 /**
@@ -27,14 +28,21 @@ export class AddpharmacyPage {
   AddPharmacyForm: FormGroup;
   showLoader: boolean = false;
   userIpData: IuserLocData;
+  AllCallingCodes: any[];
+  getcallCode: boolean = false;
   constructor(public navCtrl: NavController,
-              public navParams: NavParams,
-              public formBuilder: FormBuilder,
-              public toastCtrl: ToastController,
-              public mapsProvider: GappProvider,
-              public gelocation: Geolocation,
-              public http: Http
-              ) {
+    public navParams: NavParams,
+    public formBuilder: FormBuilder,
+    public toastCtrl: ToastController,
+    public mapsProvider: GappProvider,
+    public gelocation: Geolocation,
+    public appProv: AppProv,
+    public http: Http
+  ) {
+
+    this.AllCallingCodes = this.appProv.countryCallingCode;
+    console.log(this.AllCallingCodes);
+
     this.AddPharmacyForm = this.formBuilder.group({
       governorate: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       city: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
@@ -42,11 +50,12 @@ export class AddpharmacyPage {
       address: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       landmark: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       pharmacyname: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      mobile: ['', Validators.compose([Validators.required, Validators.minLength(8),Validators.pattern('[0-9]+')])],
-      reg_num: ['', Validators.compose([Validators.required, Validators.minLength(4),Validators.pattern('[0-9]+')])],
+      countrycall: ['', Validators.compose([Validators.required])],
+      mobile: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]+')])],
+      reg_num: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('[0-9]+')])],
       role: [0, Validators.compose([Validators.required])],
-      personalid: ['', Validators.compose([Validators.required, Validators.minLength(12),Validators.pattern('[0-9]+')])],
-      syndicate_num: ['', Validators.compose([Validators.required, Validators.minLength(4),Validators.pattern('[0-9]+')])],
+      personalid: ['', Validators.compose([Validators.required, , Validators.minLength(14), Validators.maxLength(14), Validators.pattern('[0-9]+')])],
+      syndicate_num: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('[0-9]+')])],
     })
 
   }
@@ -56,25 +65,31 @@ export class AddpharmacyPage {
 
     this.getLocation();
 
+    this.AddPharmacyForm.valueChanges
+      .subscribe(x => {
+        console.log(x);
+      })
+
   }
 
   getLocation() {
-    this.gelocation.getCurrentPosition().then(({coords, timestamp})=> {
+    this.gelocation.getCurrentPosition().then(({ coords, timestamp }) => {
       console.log(coords, timestamp);
       this.loadMap(coords.latitude, coords.longitude);
       this.getAddress(coords.latitude, coords.longitude);
-    },err=> {
+    }, err => {
       console.log(err);
       this.getUserLoc()
     });
   }
 
   getUserLoc() {
-    this.mapsProvider.getUserIP().flatMap(({ip})=>{
-      return this.mapsProvider.getUserLocayionInfoByIp(ip)})
-      .subscribe((userData:IuserLocData)=>{
-        let latLng:any[] = userData.loc.split(',');
-        console.log('%c%s','font-size:25px', 'User location Info' );
+    this.mapsProvider.getUserIP().flatMap(({ ip }) => {
+      return this.mapsProvider.getUserLocayionInfoByIp(ip)
+    })
+      .subscribe((userData: IuserLocData) => {
+        let latLng: any[] = userData.loc.split(',');
+        console.log('%c%s', 'font-size:25px', 'User location Info');
         console.group();
         console.log(userData, latLng);
         this.loadMap(...latLng);
@@ -84,7 +99,7 @@ export class AddpharmacyPage {
         this.AddPharmacyForm.get('governorate').setValue(this.userIpData.region);
         this.AddPharmacyForm.get('city').setValue(this.userIpData.city);
 
-      },err=>{
+      }, err => {
         console.warn(err);
         console.warn('%c%s', 'font-size:25px', 'Error Getting user Location')
       })
@@ -95,11 +110,11 @@ export class AddpharmacyPage {
     console.log(this.AddPharmacyForm.value);
 
     if (this.AddPharmacyForm.valid) {
-      console.log('%c%s','font-size:30px;color:#2196f3','sign up form is valid');
+      console.log('%c%s', 'font-size:30px;color:#2196f3', 'sign up form is valid');
       this.showToast('you have added a pharmacy..')
-      setTimeout(()=>{
-        this.navCtrl.setRoot('HomePage');
-       // this.navCtrl.push('HomePage');
+      setTimeout(() => {
+        //this.navCtrl.setRoot('HomePage');
+        this.navCtrl.push('LoginPage');
       }, 1500)
     } else {
       this.detectFormErrors(this.AddPharmacyForm);
@@ -107,7 +122,7 @@ export class AddpharmacyPage {
 
   }
 
-  loadMap(latitude = 31.20186325, longitude =29.90578294) {
+  loadMap(latitude = 31.20186325, longitude = 29.90578294) {
 
     //30.078462054468716,30.078462054468716
     /*console.log('load map with latlng', latitude, longitude);
@@ -127,44 +142,44 @@ export class AddpharmacyPage {
     //this.loader.dismiss();
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
- /*
-    let input = document.getElementById('pac-input');
-    let searchBox = new google.maps.places.SearchBox(input);
-    this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-    this.map.addListener('bounds_changed', function () {
-      //searchBox.setBounds(this.map.getBounds());
-    });
-    searchBox.addListener('places_changed',  ()=> {
-      let places = searchBox.getPlaces();
+    /*
+       let input = document.getElementById('pac-input');
+       let searchBox = new google.maps.places.SearchBox(input);
+       this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+       this.map.addListener('bounds_changed', function () {
+         //searchBox.setBounds(this.map.getBounds());
+       });
+       searchBox.addListener('places_changed',  ()=> {
+         let places = searchBox.getPlaces();
+   
+         if (places.length == 0) {
+           return;
+         }
+   
+         // Clear out the old markers.
+         this.removeMarkers();
+   
+         // For each place, get the icon, name and location.
+         let bounds = new google.maps.LatLngBounds();
+         places.forEach( (place)=> {
+           if (!place.geometry) {
+             console.log("Returned place contains no geometry");
+             return;
+           }
+   
+   
+           if (place.geometry.viewport) {
+             // Only geocodes have viewport.
+             bounds.union(place.geometry.viewport);
+           } else {
+             bounds.extend(place.geometry.location);
+           }
+         });
+         this.map.fitBounds(bounds);
+       }); */
 
-      if (places.length == 0) {
-        return;
-      }
 
-      // Clear out the old markers.
-      this.removeMarkers();
-
-      // For each place, get the icon, name and location.
-      let bounds = new google.maps.LatLngBounds();
-      places.forEach( (place)=> {
-        if (!place.geometry) {
-          console.log("Returned place contains no geometry");
-          return;
-        }
-
-
-        if (place.geometry.viewport) {
-          // Only geocodes have viewport.
-          bounds.union(place.geometry.viewport);
-        } else {
-          bounds.extend(place.geometry.location);
-        }
-      });
-      this.map.fitBounds(bounds);
-    }); */
-
-
-    google.maps.event.addListener(this.map,'click', (event) => {
+    google.maps.event.addListener(this.map, 'click', (event) => {
       console.log('set maker here');
       console.log('event latLng', event.latLng, event.latLng.lat(), event.latLng.lng());
       this.addMarker(event.latLng);
@@ -182,20 +197,21 @@ export class AddpharmacyPage {
       .map(res => res.json())
       .pluck('results')
       .subscribe(
-        result => {
-          //[0].formatted_address
-          console.log('response from geocoding', result[2].formatted_address);
-          let [city, governorate, country] = result[2].formatted_address.split(',');
-          let [area] = result[1].formatted_address.split(',');
+      result => {
+        //[0].formatted_address
+        console.log('response from geocoding', result[2].formatted_address);
+        let [city, governorate, country] = result[2].formatted_address.split(',');
+        let [area] = result[1].formatted_address.split(',');
 
-          this.AddPharmacyForm.get('governorate').setValue(governorate);
-          this.AddPharmacyForm.get('city').setValue(city);
-          this.AddPharmacyForm.get('area').setValue(area);
-
-        },
-        err => {
-          console.warn(err);
-        });
+        this.AddPharmacyForm.get('governorate').setValue(governorate);
+        this.AddPharmacyForm.get('city').setValue(city);
+        this.AddPharmacyForm.get('area').setValue(area);
+        this.AddPharmacyForm.get('countrycall').setValue(country.trim());
+        this.getcallCode = true;
+      },
+      err => {
+        console.warn(err);
+      });
   }
 
   detectFormErrors(form) {
@@ -208,18 +224,31 @@ export class AddpharmacyPage {
       //console.log('form Key',formKey);
 
       if (form.get(formKey).getError('required')) {
-        this.showToast('Fill '+ IEnAddPharmacy[formKey] + ' please');
+        this.showToast('Fill ' + IEnFormControls[formKey] + ' please');
         break;
-      }else if (form.get(formKey).getError('pattern')) {
+      } else if (form.get(formKey).getError('pattern')) {
 
-        this.showToast(IEnAddPharmacy[formKey]+' must be in numbers');
+        this.showToast(IEnFormControls[formKey] + ' must be in numbers');
 
         break;
       } else if (form.get(formKey).getError('minlength')) {
-        this.showToast(IEnAddPharmacy[formKey]+' must be  '+ form.get(formKey).getError('minlength').requiredLength + ' characters at least');
+        if (formKey == 'mobile' || formKey == 'personalid') {
+          this.showToast(IEnFormControls[formKey] + ' must be ' + form.get(formKey).getError('minlength').requiredLength + ' numbers')
+        } else {
+          this.showToast(IEnFormControls[formKey] + ' must be  ' + form.get(formKey).getError('minlength').requiredLength + ' characters at least');
+        }
+
         break;
-      }  else if (form.get(formKey).getError('email')) {
-        this.showToast( IEnAddPharmacy[formKey] + ' must be at form [example]@[example].com');
+      } else if (form.get(formKey).getError('maxlength')) {
+        if (formKey == 'mobile' || formKey == 'personalid') {
+          this.showToast(IEnFormControls[formKey] + ' must be ' + form.get(formKey).getError('maxlength').requiredLength + ' numbers')
+        } else {
+          this.showToast(IEnFormControls[formKey] + ' must be  ' + form.get(formKey).getError('maxlength').requiredLength + ' characters at least');
+        }
+
+        break;
+      } else if (form.get(formKey).getError('email')) {
+        this.showToast(IEnFormControls[formKey] + ' must be at form [example]@[example].com');
         break;
       } else if (form.get(formKey).getError('notAgreed')) {
         this.showToast('you have to read the terms and conditions');
@@ -238,7 +267,7 @@ export class AddpharmacyPage {
     this.markers = [];
   }
 
-  addMarker(loc?:any) {
+  addMarker(loc?: any) {
     this.removeMarkers();
     let marker = new google.maps.Marker({
       map: this.map,

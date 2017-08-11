@@ -1,6 +1,9 @@
+import { TermsModal } from './../modals/terms';
 import { Component } from '@angular/core';
-import {IonicPage, NavController, NavParams, ToastController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {  IEnSignUpControls } from "../../app/config/appinterfaces";
+import {AppProv} from '../../app/config/appprov';
 
 /**
  * Generated class for the SignupPage page.
@@ -17,25 +20,41 @@ export class SignupPage {
   signupForm: FormGroup;
   pageNumber: number = 1;
   showLoader: boolean = false;
+  AllCountries: Array<any>;
+  getcallCode:boolean = true;
+  AllCallingCodes:Array<{name:string, country: string, callingCode: string|number}>;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
+              public appProv: AppProv,
               public formBuilder: FormBuilder,
-              public toastCtrl: ToastController) {
-
+              public toastCtrl: ToastController,
+              public modalCtrl: ModalController
+            ) {
+    this.AllCountries = this.appProv.Countries;
+    this.AllCallingCodes = this.appProv.countryCallingCode.sort();
     this.signupForm = this.formBuilder.group({
-      country : ['EG', Validators.compose([Validators.required])],
+      country : ['20,EG', Validators.compose([Validators.required])],
       firstname: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
       lastname: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-      mobile: ['', Validators.compose([Validators.required, Validators.minLength(8),Validators.pattern('[0-9]+')])],
-      email: ['', Validators.compose([Validators.required])],
+      countrycall: ['',Validators.compose([Validators.required])],
+      mobile: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10),Validators.pattern('[0-9]+')])],
+
+      email: ['', Validators.compose([Validators.required,Validators.pattern('.*(.com)')])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
       InsurePassword: ['', Validators.compose([Validators.required, this.InsurePass])],
       agreeTerms: new FormControl(false, this.mustAgree)
-    })
+    });
+
+    console.log(this.signupForm.controls);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SignupPage');
+    this.signupForm.valueChanges.subscribe(s=>{
+      console.log(s);
+    });
+
+    console.log(this.appProv.countryCallingCode);
   }
 
 
@@ -79,6 +98,7 @@ export class SignupPage {
       this.navCtrl.pop()
     } else {
       this.pageNumber = this.pageNumber - 1;
+      this.getcallCode = true;
     }
 
 
@@ -94,20 +114,35 @@ export class SignupPage {
       //console.log('form Key',formKey);
 
       if (form.get(formKey).getError('required')) {
-        this.showToast('Fill '+ formKey.toUpperCase() + ' please');
+        this.showToast('Fill '+ IEnSignUpControls[formKey] + ' please');
         break;
       } else if (form.get(formKey).getError('minlength')) {
-        this.showToast(formKey.toUpperCase()+' must be  '+ form.get(formKey).getError('minlength').requiredLength + ' characters at least');
+        if(formKey == 'mobile') {
+          this.showToast(IEnSignUpControls[formKey]+' must be 10 numbers')
+        } else {
+          this.showToast(IEnSignUpControls[formKey]+' must be  '+ form.get(formKey).getError('minlength').requiredLength + ' characters at least');
+        }
+        
+        break;
+      }else if (form.get(formKey).getError('maxlength')) {
+        if(formKey == 'mobile') {
+          this.showToast(IEnSignUpControls[formKey]+' must be 10 numbers')
+        } else {
+          this.showToast(IEnSignUpControls[formKey]+' must be  '+ form.get(formKey).getError('maxlength').requiredLength);
+        }
+        
         break;
       } else if (form.get(formKey).getError('pattern')) {
         if(formKey == 'mobile') {
-          this.showToast('mobile must be in numbers')
-        } else {
-          this.showToast('you must write  correct ');
+          this.showToast(IEnSignUpControls[formKey]+' must be in numbers')
+        } else if (formKey == 'email') {
+          this.showToast( IEnSignUpControls[formKey] + ' must be at form (example)@(example).com');
+        }else {
+          this.showToast('you must write  correct '+IEnSignUpControls[formKey]);
         }
         break;
       } else if (form.get(formKey).getError('email')) {
-        this.showToast( formKey + ' must be at form [example]@[example].com');
+        this.showToast( IEnSignUpControls[formKey]+ ' must be at form [example]@[example].com');
         break;
       } else if (form.get(formKey).getError('notAgreed')) {
         this.showToast('you have to read the terms and conditions');
@@ -135,5 +170,20 @@ export class SignupPage {
     });
 
     toast.present();
+  }
+
+  nextStep() {
+    this.pageNumber = 2;
+    this.signupForm.get('countrycall').setValue(this.signupForm.get('country').value.split(',')[1]);
+    setTimeout(()=>{
+      this.getcallCode = false
+    },0)
+  }
+
+  openTermsModal() {
+    console.log('attempt to open modal')
+    let modal = this.modalCtrl.create(TermsModal)
+
+    modal.present();
   }
 }

@@ -27,7 +27,22 @@ page-signup {
     .img {
       text-align: center
     }
+    ion-select {
+      &.mobile-select {
+        position: relative;
+      }
+      border-bottom: 2px solid $primary;
+        background-color: #eee;
+      border-right:2px solid #ccc;
+      .select-icon {
+        visibility: hidden;
 
+      }
+      .select-text {
+        overflow: visible;
+      }
+
+    }
     form {
       margin-top: -40px;
       margin-bottom: 40px;
@@ -45,6 +60,7 @@ page-signup {
 
         &.select-country {
           ion-select {
+
             max-width: 100%;
             flex:1;
             line-height: 35px;

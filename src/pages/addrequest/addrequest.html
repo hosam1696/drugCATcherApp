@@ -69,7 +69,7 @@
       <h2>Requested</h2>
     </div>
     <div class="input">
-      <input type="text" class="form-control">
+      <input type="text" class="form-control" #RQ (input)="keepItNumber(RQ.value)">
     </div>
     <div class="request-ctrl">
       <button type="button" class = 'float-btn' ion-button (click)="addRequest()">Request</button>

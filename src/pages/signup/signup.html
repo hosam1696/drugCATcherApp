@@ -28,11 +28,8 @@
       <div class="form-group select-country">
         <div class="input-ctrl">
           <ion-select   class="form-control" formControlName="country" >
-              <ion-option value="EG">EGYPT</ion-option>
-            <ion-option value="US">United States</ion-option>
-            <ion-option value="TU">Turkey</ion-option>
-            <ion-option value="FR">France</ion-option>
-            <ion-option value="EN">ENGLAND</ion-option>
+
+            <ion-option *ngFor="let country of AllCountries" [value]="country.callingCode[0]+','+country.cca2" >{{country.name.common}}</ion-option>
             </ion-select>
 
         </div>
@@ -42,8 +39,8 @@
 
 
       </div>
-      <br><br>
-      <button type="button"  margin-top  block  ion-button (click)="this.pageNumber = 2">Next</button>
+      <br>
+      <button type="button"  margin-top  class="btn-block"  ion-button (click)="nextStep()">Next</button>
 
     </section>
 
@@ -85,9 +82,11 @@
           <img src="assets/icons/phone.png" width="27" alt="">
           <!--<ion-icon name="ios-baseball-outline"></ion-icon>-->
         </div>
-
+        <ion-select class="mobile-select" formControlName="countrycall">
+            <ion-option *ngFor="let code of AllCallingCodes" [value]="!getcallCode?code.callingCode:code.country">+{{code.callingCode}}</ion-option>
+        </ion-select>
         <div class="input-ctrl">
-          <input placeholder="mobile +20" class="form-control" formControlName="mobile" >
+          <input placeholder="mobile" class="form-control" formControlName="mobile" >
           <div class="validator">
             <ion-icon name="checkmark" [color]="signupForm.controls.mobile.valid?'primary':'lightDark'"></ion-icon>
           </div>
@@ -142,12 +141,12 @@
 
       <div class="form-group agree-terms">
 
-        <input type="checkbox" id="agreeTerms" formControlName="agreeTerms">
-        <label for="agreeTerms"> Agree Terms and Conditions</label>
+        <input margin-right type="checkbox" id="agreeTerms" formControlName="agreeTerms">
+        <span (click)="openTermsModal()" for="agreeTerms"> Agree Terms and Conditions</span>
 
       </div>
 
-      <button  margin-top type="submit" block  ion-button >
+      <button class="btn-block"  margin-top type="submit" block  ion-button >
         Sign up &nbsp;&nbsp;
         <ion-spinner *ngIf="showLoader" name="crescent"></ion-spinner>
       </button>

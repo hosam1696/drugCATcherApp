@@ -44,8 +44,14 @@ ion-list-header {
 * {
   font-family: "Roboto-Regular", sans-serif;
 }
-
-
+.toolbar-title {
+  text-align: center !important;
+}
+.btn-block {
+  display: block;
+  width: 90%;
+  margin: 12px auto !important;
+}
 ion-list {
   &.side-menu{
     ion-label {

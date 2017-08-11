@@ -132,7 +132,9 @@
         <img src="assets/icons/phone.png" width="27" alt="">
         <!--<ion-icon name="ios-baseball-outline"></ion-icon>-->
       </div>
-
+      <ion-select class="mobile-select" formControlName="countrycall">
+        <ion-option *ngFor="let code of AllCallingCodes" [value]="getcallCode?code.callingCode:code.name">+{{code.callingCode}}</ion-option>
+    </ion-select>
       <div class="input-ctrl">
         <input type="text" placeholder="pharmacy number" class="form-control" formControlName="mobile" >
         <div class="validator">

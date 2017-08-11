@@ -1,3 +1,5 @@
+import { TermsModal } from './../pages/modals/terms';
+import { UserProvider } from './../providers/user';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -10,10 +12,12 @@ import { GappProvider } from '../providers/gappproviders';
 
 import  { Geolocation} from "@ionic-native/geolocation"
 import {HttpModule} from "@angular/http";
+import {AppProv} from "./config/appprov";
 
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    TermsModal
   ],
   imports: [
     BrowserModule,
@@ -27,14 +31,16 @@ import {HttpModule} from "@angular/http";
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    TermsModal
   ],
   providers: [
     StatusBar,
     SplashScreen,
-
+    AppProv,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     GappProvider,
+    UserProvider,
     Geolocation
   ]
 })
