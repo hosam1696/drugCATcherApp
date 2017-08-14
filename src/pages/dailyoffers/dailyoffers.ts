@@ -39,8 +39,8 @@ export class DailyoffersPage {
     this.navCtrl.push('AddofferPage',{pageData:'edit'});
   }
 
-  navigateTo(page) {
-    this.navCtrl.push(page);
+  navigateTo(page, pageData?:any) {
+    this.navCtrl.push(page, {pageData});
   }
 
   showOfferOptions() {

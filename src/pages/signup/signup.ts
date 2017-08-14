@@ -17,12 +17,16 @@ import {AppProv} from '../../app/config/appprov';
   templateUrl: 'signup.html',
 })
 export class SignupPage {
-  signupForm: FormGroup;
-  pageNumber: number = 1;
-  showLoader: boolean = false;
-  AllCountries: Array<any>;
-  getcallCode:boolean = true;
-  AllCallingCodes:Array<{name:string, country: string, callingCode: string|number}>;
+
+
+  signupForm     : FormGroup;
+  pageNumber     : number = 1;
+  showLoader     : boolean = false;
+  AllCountries   : Array<any>;
+  getcallCode    : boolean = true;
+  AllCallingCodes: Array<{name:string, country: string, callingCode: string|number}>;
+
+
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               public appProv: AppProv,
@@ -116,6 +120,15 @@ export class SignupPage {
       if (form.get(formKey).getError('required')) {
         this.showToast('Fill '+ IEnSignUpControls[formKey] + ' please');
         break;
+      }else if (form.get(formKey).getError('pattern')) {
+        if(formKey == 'mobile') {
+          this.showToast(IEnSignUpControls[formKey]+' must be in numbers')
+        } else if (formKey == 'email') {
+          this.showToast( IEnSignUpControls[formKey] + ' must be at form (example)@(example).com');
+        }else {
+          this.showToast('you must write  correct '+IEnSignUpControls[formKey]);
+        }
+        break;
       } else if (form.get(formKey).getError('minlength')) {
         if(formKey == 'mobile') {
           this.showToast(IEnSignUpControls[formKey]+' must be 10 numbers')
@@ -132,16 +145,7 @@ export class SignupPage {
         }
         
         break;
-      } else if (form.get(formKey).getError('pattern')) {
-        if(formKey == 'mobile') {
-          this.showToast(IEnSignUpControls[formKey]+' must be in numbers')
-        } else if (formKey == 'email') {
-          this.showToast( IEnSignUpControls[formKey] + ' must be at form (example)@(example).com');
-        }else {
-          this.showToast('you must write  correct '+IEnSignUpControls[formKey]);
-        }
-        break;
-      } else if (form.get(formKey).getError('email')) {
+      }  else if (form.get(formKey).getError('email')) {
         this.showToast( IEnSignUpControls[formKey]+ ' must be at form [example]@[example].com');
         break;
       } else if (form.get(formKey).getError('notAgreed')) {
@@ -174,7 +178,7 @@ export class SignupPage {
 
   nextStep() {
     this.pageNumber = 2;
-    this.signupForm.get('countrycall').setValue(this.signupForm.get('country').value.split(',')[1]);
+    this.signupForm.get('countrycall').setValue(this.signupForm.get('country').value.split(',')[0]);
     setTimeout(()=>{
       this.getcallCode = false
     },0)

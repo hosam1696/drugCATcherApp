@@ -5,9 +5,9 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-buttons end>
+  <ion-buttons start>
     <button ion-button clear color="primary" (click)="backStep()">
-      <ion-icon name="ios-arrow-forward"></ion-icon>
+      <ion-icon name="ios-arrow-back"></ion-icon>
     </button>
   </ion-buttons>
 </ion-header>
@@ -17,7 +17,7 @@
     <img src="assets/img/cat-logo-2-02.png" alt="ssd">
 
 
-  <button ion-button block (click)="navigateToPage('AddpharmacyPage')" color="lightDark">Add Pharmacy</button>
-  <button ion-button block  color="primary">Join Pharmacy</button>
+  <button ion-button block (click)="navigateToPage('AddpharmacyPage')" color="primary">Add Pharmacy</button>
+  <!--<button ion-button block  color="primary">Join Pharmacy</button>-->
 
 </ion-content>

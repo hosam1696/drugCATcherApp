@@ -24,6 +24,15 @@ page-signup {
     &.content {
       background: $appBG
     }
+    .call-num-alt {
+      width: 15%;
+      text-align: center;
+      line-height: 40px;
+      border-bottom: 2px solid #7bc242;
+      background-color: #eee;
+      color: #999;
+      font-size: 18px;
+    }
     .img {
       text-align: center
     }

@@ -9,6 +9,11 @@ export interface IuserLocData {
   latitude?:number,
   longitude?:number
 }
+
+export enum IEnLoginControls {
+  email = 'Email',
+  password = 'Password'
+}
 export enum IEnSignUpControls {
   firstname= 'First Name',
   lastname = 'Last Name',
@@ -28,8 +33,8 @@ export enum IEnFormControls {
   landmark = 'LandMark',
   mobile = 'Pharmacy Number',
   pharmacyname = 'Pharmacy Name',
-  personalid = 'Personal Id',
-  reg_num = 'Registeration Id',
+  personalid = 'National Id Number',
+  reg_num = 'Registeration Number',
   syndicate_num = 'Syndicate Number',
 
 

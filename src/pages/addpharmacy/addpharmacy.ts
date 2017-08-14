@@ -9,12 +9,7 @@ import { IuserLocData, IEnFormControls } from "../../app/config/appinterfaces";
 import { Http } from "@angular/http";
 import "rxjs/add/operator/pluck";
 
-/**
- * Generated class for the AddpharmacyPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
 declare let google;
 @IonicPage()
 @Component({
@@ -22,14 +17,17 @@ declare let google;
   templateUrl: 'addpharmacy.html',
 })
 export class AddpharmacyPage {
+  
   @ViewChild('map') mapElement: ElementRef;
-  map: any;
-  markers = [];
-  AddPharmacyForm: FormGroup;
-  showLoader: boolean = false;
-  userIpData: IuserLocData;
-  AllCallingCodes: any[];
-  getcallCode: boolean = false;
+  map              : any;
+  markers          : any[] = [];
+  AddPharmacyForm  : FormGroup;
+  showLoader       : boolean = false;
+  userIpData       : IuserLocData;
+  AllCallingCodes  : any[];
+  getcallCode      : boolean = false;
+
+
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder,
@@ -67,16 +65,28 @@ export class AddpharmacyPage {
 
     this.AddPharmacyForm.valueChanges
       .subscribe(x => {
-        console.log(x);
+        console.log(x, x.role);
+        if (x.role == 4 || x.role == 5) {
+          
+          console.log('i want to remove syndecate number');
+          this.AddPharmacyForm.get('syndicate_num').clearValidators();
+          
+          this.AddPharmacyForm.controls.syndicate_num.setValidators(Validators.nullValidator);
+          //x.syndicate_num.setValidators(null);
+
+         // this.AddPharmacyForm.controls.syndicate_num.setValidators(null);
+        }
+        
       })
 
   }
 
   getLocation() {
     this.gelocation.getCurrentPosition().then(({ coords, timestamp }) => {
+      const {latitude, longitude} = coords;
       console.log(coords, timestamp);
-      this.loadMap(coords.latitude, coords.longitude);
-      this.getAddress(coords.latitude, coords.longitude);
+      this.loadMap(latitude, longitude);
+      this.getAddress(latitude, longitude);
     }, err => {
       console.log(err);
       this.getUserLoc()
@@ -84,9 +94,11 @@ export class AddpharmacyPage {
   }
 
   getUserLoc() {
-    this.mapsProvider.getUserIP().flatMap(({ ip }) => {
-      return this.mapsProvider.getUserLocayionInfoByIp(ip)
-    })
+    this.mapsProvider
+      .getUserIP()
+      .flatMap(({ ip }) => {
+        return this.mapsProvider.getUserLocayionInfoByIp(ip)
+      })
       .subscribe((userData: IuserLocData) => {
         let latLng: any[] = userData.loc.split(',');
         console.log('%c%s', 'font-size:25px', 'User location Info');
@@ -95,7 +107,7 @@ export class AddpharmacyPage {
         this.loadMap(...latLng);
         this.userIpData = userData;
         this.userIpData.latitude = userData.loc.split(',')[0];
-        this.userIpData.longitude = userData.loc.split(',')[0];
+        this.userIpData.longitude = userData.loc.split(',')[1];
         this.AddPharmacyForm.get('governorate').setValue(this.userIpData.region);
         this.AddPharmacyForm.get('city').setValue(this.userIpData.city);
 
@@ -124,11 +136,6 @@ export class AddpharmacyPage {
 
   loadMap(latitude = 31.20186325, longitude = 29.90578294) {
 
-    //30.078462054468716,30.078462054468716
-    /*console.log('load map with latlng', latitude, longitude);
-    if (!latitude && !longitude) {
-      [latitude, longitude] = [(this.userLocal.latitude) ? this.userLocal.latitude : this.modalData.latitude, (this.userLocal.longitude) ? this.userLocal.longitude : this.modalData.longitude];
-    }*/
     console.log('latitude, longitude', latitude, longitude);
 
     let latLng = new google.maps.LatLng(latitude, longitude);
@@ -139,54 +146,17 @@ export class AddpharmacyPage {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
 
     };
-    //this.loader.dismiss();
+
     this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-    /*
-       let input = document.getElementById('pac-input');
-       let searchBox = new google.maps.places.SearchBox(input);
-       this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-       this.map.addListener('bounds_changed', function () {
-         //searchBox.setBounds(this.map.getBounds());
-       });
-       searchBox.addListener('places_changed',  ()=> {
-         let places = searchBox.getPlaces();
-   
-         if (places.length == 0) {
-           return;
-         }
-   
-         // Clear out the old markers.
-         this.removeMarkers();
-   
-         // For each place, get the icon, name and location.
-         let bounds = new google.maps.LatLngBounds();
-         places.forEach( (place)=> {
-           if (!place.geometry) {
-             console.log("Returned place contains no geometry");
-             return;
-           }
-   
-   
-           if (place.geometry.viewport) {
-             // Only geocodes have viewport.
-             bounds.union(place.geometry.viewport);
-           } else {
-             bounds.extend(place.geometry.location);
-           }
-         });
-         this.map.fitBounds(bounds);
-       }); */
-
-
     google.maps.event.addListener(this.map, 'click', (event) => {
-      console.log('set maker here');
-      console.log('event latLng', event.latLng, event.latLng.lat(), event.latLng.lng());
+      let {lat, lng} = event.latLng;
+      console.log('set Marker Here + event latLng', event.latLng, lat(), lng());
       this.addMarker(event.latLng);
+      this.getAddress(lat(), lng());
     });
 
     this.addMarker();
-
 
   }
 
@@ -196,18 +166,28 @@ export class AddpharmacyPage {
     this.http.get(geocodeUrl)
       .map(res => res.json())
       .pluck('results')
+      .map(res=>[res[0]['address_components'],res[2]['address_components']])
+      //.pluck('address_components')
+      //.map(res=>res)
       .subscribe(
       result => {
         //[0].formatted_address
-        console.log('response from geocoding', result[2].formatted_address);
-        let [city, governorate, country] = result[2].formatted_address.split(',');
-        let [area] = result[1].formatted_address.split(',');
+        let mapComp = result[0].map(c=>c.long_name);
+        if(!isNaN(mapComp[mapComp.length - 1]))
+          mapComp.pop();
+        console.log('response from geocoding',result);
 
+        let [area, governorate, country] = [mapComp[mapComp.length-3],mapComp[mapComp.length-2],mapComp[mapComp.length-1]];
+        let city = isNaN(result[1][0].long_name)?result[1][0].long_name:result[1][1].long_name;
+
+        let countryCall:any = (country)?this.appProv.countryCallingCode.find(c=>c.name == country):'20';
+        console.log('country call' ,countryCall)
         this.AddPharmacyForm.get('governorate').setValue(governorate);
         this.AddPharmacyForm.get('city').setValue(city);
         this.AddPharmacyForm.get('area').setValue(area);
-        this.AddPharmacyForm.get('countrycall').setValue(country.trim());
+        this.AddPharmacyForm.get('countrycall').setValue(countryCall.callingCode);
         this.getcallCode = true;
+        
       },
       err => {
         console.warn(err);

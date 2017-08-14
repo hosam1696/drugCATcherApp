@@ -132,9 +132,14 @@
         <img src="assets/icons/phone.png" width="27" alt="">
         <!--<ion-icon name="ios-baseball-outline"></ion-icon>-->
       </div>
-      <ion-select class="mobile-select" formControlName="countrycall">
+
+      <div class="call-num-alt">
+          +{{AddPharmacyForm.controls.countrycall.value}}  
+        </div> 
+
+      <!--<ion-select class="mobile-select" formControlName="countrycall">
         <ion-option *ngFor="let code of AllCallingCodes" [value]="getcallCode?code.callingCode:code.name">+{{code.callingCode}}</ion-option>
-    </ion-select>
+    </ion-select>-->
       <div class="input-ctrl">
         <input type="text" placeholder="pharmacy number" class="form-control" formControlName="mobile" >
         <div class="validator">
@@ -152,7 +157,7 @@
       </div>
 
       <div class="input-ctrl">
-        <input type="text" placeholder="registration number" class="form-control" formControlName="reg_num" >
+        <input type="text" placeholder="pharmacy registration number" class="form-control" formControlName="reg_num" >
         <div class="validator">
           <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.reg_num.valid?'primary':'lightDark'"></ion-icon>
         </div>
@@ -189,7 +194,7 @@
       </div>
 
       <div class="input-ctrl">
-        <input type="text"  placeholder="Personal Id" class="form-control" formControlName="personalid" >
+        <input type="text"  placeholder="National Id Number" class="form-control" formControlName="personalid" >
         <div class="validator">
           <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.personalid.valid?'primary':'lightDark'"></ion-icon>
         </div>
@@ -200,7 +205,7 @@
 
 
 
-    <div class="form-group">
+    <div class="form-group" [hidden]="AddPharmacyForm.controls.role.value == '5' || AddPharmacyForm.controls.role.value == '4'">
 
       <div class="form-ctrl-icon">
         <img src="assets/icons/ATTATCHMENT.png" width="27" alt="">

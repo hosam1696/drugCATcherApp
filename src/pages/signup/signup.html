@@ -6,9 +6,9 @@
 -->
 
 <ion-header>
-    <ion-buttons end>
+    <ion-buttons start>
       <button ion-button clear  (click)="backStep()">
-        <ion-icon name="ios-arrow-forward"></ion-icon>
+        <ion-icon name="ios-arrow-back"></ion-icon>
       </button>
     </ion-buttons>
 </ion-header>
@@ -82,11 +82,15 @@
           <img src="assets/icons/phone.png" width="27" alt="">
           <!--<ion-icon name="ios-baseball-outline"></ion-icon>-->
         </div>
-        <ion-select class="mobile-select" formControlName="countrycall">
+
+        <div class="call-num-alt">
+          +{{signupForm.controls.countrycall.value}}  
+        </div> 
+        <!--<ion-select class="mobile-select" formControlName="countrycall">
             <ion-option *ngFor="let code of AllCallingCodes" [value]="!getcallCode?code.callingCode:code.country">+{{code.callingCode}}</ion-option>
-        </ion-select>
+        </ion-select> -->
         <div class="input-ctrl">
-          <input placeholder="mobile" class="form-control" formControlName="mobile" >
+          <input placeholder=" mobile number" class="form-control" formControlName="mobile" >
           <div class="validator">
             <ion-icon name="checkmark" [color]="signupForm.controls.mobile.valid?'primary':'lightDark'"></ion-icon>
           </div>
