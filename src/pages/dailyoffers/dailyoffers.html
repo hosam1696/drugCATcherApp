@@ -10,7 +10,7 @@
     <button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Daily Offers</ion-title>
+    <ion-title>My Offers</ion-title>
     <ion-buttons start>
       <!--<ion-icon name="search" color="light"></ion-icon>-->
       <img src="assets/img/cat.png" alt="cat image" width="30">
@@ -31,13 +31,13 @@
   </p>
 
   <ion-list *ngIf="AllOffers">
-    <ion-item>
+    <ion-item *ngFor="let offer of AllOffers">
       <ion-item-sliding #item>
-        <ion-item (click)="navigateTo('RequestedoffersPage', 'pageData')">
-          <div class="card-wrapper" (click)="showOfferOptions()">
-            <h2>Congestal 500mg 10Tab 1Strib
+        <ion-item (click)="navigateTo('RequestedoffersPage', offer.id)">
+          <div class="card-wrapper" >
+            <h2 [innerHTML]="offer.name + ' ' +offer.concentration+' '+offer.content+' '+ offer.subunit">
 
-              <ion-badge>5</ion-badge>
+              <ion-badge hidden>5</ion-badge>
 
             </h2>
             <ion-grid>
@@ -46,12 +46,12 @@
                 <ion-col>
                   <img src="assets/icons/date.png" width="15" alt="">
                   <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
-                  <span class="req-value">10-7</span>
+                  <span class="req-value">{{offer.expire_date | date:'MM-yy'}}</span>
                 </ion-col>
                 <ion-col>
                   <img src="assets/icons/box-copy-2.png" width="15" alt="">
                   <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
-                  <span class="req-value">10</span>
+                  <span class="req-value">{{offer.quantity}}</span>
                 </ion-col>
               </ion-row>
               <ion-row>
@@ -59,24 +59,24 @@
                 <ion-col>
                   <img src="assets/icons/sale.png" width="15" alt="">
                   <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
-                  <span class="req-value">40 %</span>
+                  <span class="req-value">{{offer.discount}} %</span>
                 </ion-col>
                 <ion-col>
                   <img src="assets/icons/price_icon_6.png" width="15" alt="">
-                  <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">13 LE</span>
+                  <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">{{offer.price}}</span>
                 </ion-col>
               </ion-row>
             </ion-grid>
           </div>
         </ion-item>
         <ion-item-options class = 'card-options' side="left">
-          <button ion-button (click)="editOffer()">
+          <button ion-button (click)="editOffer(offer)">
             <div class="img-wrap">
 
               <img src="assets/icons/edit.png" width="50" alt="">
-              </div>    
+              </div>
           </button>
-          <button ion-button color="danger" (click)="deleteOffer()">
+          <button ion-button color="danger" (click)="deleteOffer(offer.id)">
             <img src="assets/icons/delete.png" width="50" alt="">
           </button>
         </ion-item-options>
@@ -85,7 +85,7 @@
     </ion-item>
 
   </ion-list>
- 
+
 
   <ion-fab right bottom (click)="navigateTo('AddofferPage')">
     <button ion-fab>

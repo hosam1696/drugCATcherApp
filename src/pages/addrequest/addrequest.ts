@@ -1,5 +1,8 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import {Offers} from "../../app/config/appinterfaces";
+import {OfferProvider} from "../../providers/offer.provider";
+import {Storage} from "@ionic/storage";
 
 /**
  * Generated class for the AddrequestPage page.
@@ -16,15 +19,28 @@ import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angu
 export class AddrequestPage {
   @ViewChild('RQ') reqQuantity: ElementRef;
   showLoader: boolean = false;
+  pageData: Offers;
+  userId: number;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    public toastCtrl: ToastController
+    public toastCtrl: ToastController,
+    private offerProvider: OfferProvider,
+    private storage: Storage
     ) {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddrequestPage');
+
+    this.pageData = this.navParams.get('pageData');
+
+    console.log(this.pageData);
+
+    this.storage.get('LoginData')
+      .then(login=>{
+        login = JSON.parse(login);
+        this.userId = login.id;
+      })
   }
 
   navigateTo(page, pageData = null) {
@@ -39,40 +55,42 @@ export class AddrequestPage {
     if (reqValue && reqValue  > 0) {
       this.showLoader = true;
       console.log('attempt to add request');
-  
+
       //check if the requested quantity is smaller than the offer
-  
-      setTimeout(()=>{
+
+      this.offerProvider.AddRequestOffer({offer_id: this.pageData.id, user_id: this.userId,offer_user_id: this.pageData.user_id, quantity:reqValue}).subscribe(data=>{
+        console.log(data);
+        if (data.status == 200) {
+          this.showToast('your request had been sent successfully');
+          this.showLoader = false;
+          setTimeout(()=>{
+            this.navCtrl.setRoot('HomePage');
+          }, 1000)
+        }
+      }, err=>{
+        console.warn(err);
+        this.showLoader =false;
+      }, ()=> {
+        this.showLoader=false
+      });
+
+      /*setTimeout(()=>{
         this.showToast('your request had been sent successfully');
         this.showLoader = false;
         setTimeout(()=>{
           this.navCtrl.setRoot('HomePage');
         }, 1000);
-      }, 1500);
+      }, 1500);*/
     } else {
       this.showToast('requested value is empty');
     }
   }
 
-  private keepItNumber(value) {
+  private limitQuantityValue(val) {
 
-    console.log(value);
+    let maxValue = this.pageData.quantity;
 
-    value = value.split('');
-    let enteredKey = value[value.length - 1];
-    console.log(value, enteredKey);
-    /*
-    let targetVal:string = event.target.value;
-    const val = parseInt(event.key);*/
-    if (isNaN(enteredKey) && enteredKey != ' ') {
-      console.warn('rr');
-      value.pop();
-      this.reqQuantity.nativeElement.value = value.join('');
-      //event.target.value = event.target.value.substr(0, targetVal.length - 1)
-    } else {
-      console.log('number', enteredKey, typeof enteredKey, value);
-    }
-
+    this.reqQuantity.nativeElement.value = Math.max(1,Math.min(val,maxValue));
   }
 
   showToast(msg) {

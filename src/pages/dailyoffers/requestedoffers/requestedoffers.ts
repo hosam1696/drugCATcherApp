@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {OfferProvider} from "../../../providers/offer.provider";
 
 /**
  * Generated class for the RequestedoffersPage page.
@@ -14,12 +15,33 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'requestedoffers.html',
 })
 export class RequestedoffersPage {
+  pageData:any;
+  showLoader; boolean = true;
+  AllRequest:any[];
+  noData: boolean = false;
+  constructor(public navCtrl: NavController,
+              public navParams: NavParams,
+              private offerProvider: OfferProvider
+              ) {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+      this.pageData = this.navParams.get('pageData');
+
+      console.log(this.pageData);
+
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RequestedoffersPage');
+    this.offerProvider
+      .getPendingRequests(this.pageData)
+      .subscribe(({status, data})=>{
+      console.log(data);
+        if (data.length <=0) {
+          this.noData = true;
+        } else {
+          this.AllRequest = data;
+        }
+      })
   }
 
 

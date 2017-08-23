@@ -1,7 +1,11 @@
 page-wallet {
   ion-content {
     background: $appBG;
-  
+
+    h1 {
+        color: $primary;
+      margin-top: 30px;
+    }
     ion-card {
       box-shadow: none !important;
       border: 1px solid #eee;

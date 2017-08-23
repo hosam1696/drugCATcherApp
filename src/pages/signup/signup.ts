@@ -1,16 +1,12 @@
+import { UserProvider } from './../../providers/user';
 import { TermsModal } from './../modals/terms';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController, ModalController } from 'ionic-angular';
+import { Storage} from '@ionic/storage';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {  IEnSignUpControls } from "../../app/config/appinterfaces";
 import {AppProv} from '../../app/config/appprov';
 
-/**
- * Generated class for the SignupPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
   selector: 'page-signup',
@@ -29,19 +25,21 @@ export class SignupPage {
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
+              private userProvider: UserProvider,
               public appProv: AppProv,
               public formBuilder: FormBuilder,
               public toastCtrl: ToastController,
-              public modalCtrl: ModalController
+              public modalCtrl: ModalController,
+              private storage: Storage
             ) {
     this.AllCountries = this.appProv.Countries;
     this.AllCallingCodes = this.appProv.countryCallingCode.sort();
     this.signupForm = this.formBuilder.group({
       country : ['20,EG', Validators.compose([Validators.required])],
-      firstname: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-      lastname: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
+      first_name: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
+      last_name: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
       countrycall: ['',Validators.compose([Validators.required])],
-      mobile: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10),Validators.pattern('[0-9]+')])],
+      phone: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10),Validators.pattern('[0-9]+')])],
 
       email: ['', Validators.compose([Validators.required,Validators.pattern('.*(.com)')])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
@@ -85,11 +83,47 @@ export class SignupPage {
 
       this.showLoader = true;
 
-      this.showToast('successfully create new account');
+      this.userProvider
+        .signUpUser(this.signupForm.value)
+        .subscribe(({status ,data})=>{
+          if (status == 'ok') {
+            this.showToast('you have created new account successfully');
 
-      setTimeout(()=> {
+            this.storage
+              .set('signupData', JSON.stringify(data))
+              .then(data=>{
+                console.log('data from storage resolve', data);
+                this.navigateToPage('ChooseaddorjoinPage');
+              });
+
+
+          }
+        }, err=>{
+          this.showLoader = false;
+
+          let error = err.json().error.message;
+          console.warn(err.json(), error);
+
+          let match = error.match(/\'+.+\'+/g)[0];
+
+          if(match.match('users_email_unique') != null) {
+              this.showToast('User Email must be unique! choose another one');
+          } else if (match.match('users_phone_unique') != null) {
+            this.showToast('User Phone must be unique! choose another one');
+          }
+
+        }, ()=> {
+          this.showLoader = false;
+        })
+
+      // this.showToast('successfully create new account');
+
+
+
+
+      /*setTimeout(()=> {
         this.navigateToPage('ChooseaddorjoinPage');
-      }, 2000)
+      }, 2000)*/
 
     } else {
       this.detectFormErrors(this.signupForm);
@@ -135,7 +169,7 @@ export class SignupPage {
         } else {
           this.showToast(IEnSignUpControls[formKey]+' must be  '+ form.get(formKey).getError('minlength').requiredLength + ' characters at least');
         }
-        
+
         break;
       }else if (form.get(formKey).getError('maxlength')) {
         if(formKey == 'mobile') {
@@ -143,7 +177,7 @@ export class SignupPage {
         } else {
           this.showToast(IEnSignUpControls[formKey]+' must be  '+ form.get(formKey).getError('maxlength').requiredLength);
         }
-        
+
         break;
       }  else if (form.get(formKey).getError('email')) {
         this.showToast( IEnSignUpControls[formKey]+ ' must be at form [example]@[example].com');

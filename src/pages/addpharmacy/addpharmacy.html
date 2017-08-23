@@ -86,7 +86,7 @@
       </div>
 
       <div class="input-ctrl">
-        <input type="text"  placeholder="Address" class="form-control" formControlName="address" >
+        <input type="text"  placeholder="building number , street name" class="form-control" formControlName="address" >
         <div class="validator">
           <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.address.valid?'primary':'lightDark'"></ion-icon>
         </div>
@@ -118,9 +118,9 @@
       </div>
 
       <div class="input-ctrl">
-        <input type="text"  placeholder="Pharmacy name" class="form-control" formControlName="pharmacyname" >
+        <input type="text"  placeholder="Pharmacy name" class="form-control" formControlName="name" >
         <div class="validator">
-          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.pharmacyname.valid?'primary':'lightDark'"></ion-icon>
+          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.name.valid?'primary':'lightDark'"></ion-icon>
         </div>
       </div>
 
@@ -134,16 +134,16 @@
       </div>
 
       <div class="call-num-alt">
-          +{{AddPharmacyForm.controls.countrycall.value}}  
-        </div> 
+          +{{AddPharmacyForm.controls.calling_code.value}}
+        </div>
 
       <!--<ion-select class="mobile-select" formControlName="countrycall">
         <ion-option *ngFor="let code of AllCallingCodes" [value]="getcallCode?code.callingCode:code.name">+{{code.callingCode}}</ion-option>
     </ion-select>-->
       <div class="input-ctrl">
-        <input type="text" placeholder="pharmacy number" class="form-control" formControlName="mobile" >
+        <input type="text" placeholder="pharmacy number" class="form-control" formControlName="phone" >
         <div class="validator">
-          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.mobile.valid?'primary':'lightDark'"></ion-icon>
+          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.phone.valid?'primary':'lightDark'"></ion-icon>
         </div>
       </div>
 
@@ -157,9 +157,9 @@
       </div>
 
       <div class="input-ctrl">
-        <input type="text" placeholder="pharmacy registration number" class="form-control" formControlName="reg_num" >
+        <input type="text" placeholder="pharmacy registration number" class="form-control" formControlName="registeration_number" >
         <div class="validator">
-          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.reg_num.valid?'primary':'lightDark'"></ion-icon>
+          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.registeration_number.valid?'primary':'lightDark'"></ion-icon>
         </div>
       </div>
 
@@ -194,9 +194,9 @@
       </div>
 
       <div class="input-ctrl">
-        <input type="text"  placeholder="National Id Number" class="form-control" formControlName="personalid" >
+        <input type="text"  placeholder="National Id Number" class="form-control" formControlName="personal_id" >
         <div class="validator">
-          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.personalid.valid?'primary':'lightDark'"></ion-icon>
+          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.personal_id.valid?'primary':'lightDark'"></ion-icon>
         </div>
       </div>
 
@@ -213,9 +213,9 @@
       </div>
 
       <div class="input-ctrl">
-        <input type="text"  placeholder="syndicate number" class="form-control" formControlName="syndicate_num" >
+        <input type="text"  placeholder="syndicate number" class="form-control" formControlName="syndicate_id_number" >
         <div class="validator">
-          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.syndicate_num.valid?'primary':'lightDark'"></ion-icon>
+          <ion-icon name="checkmark" [color]="AddPharmacyForm.controls.syndicate_id_number.valid?'primary':'lightDark'"></ion-icon>
         </div>
       </div>
 

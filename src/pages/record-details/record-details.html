@@ -1,5 +1,5 @@
 <!--
-  Generated template for the AddrequestPage page.
+  Generated template for the RecordDetailsPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
@@ -7,22 +7,18 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>Add Request</ion-title>
-    <ion-buttons start>
-      <!--<ion-icon name="search" color="light"></ion-icon>-->
-      <img src="assets/img/cat.png" alt="cat image" width="30">
-
-    </ion-buttons>
+    <ion-title>Request</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding-vertical>
-  <ion-card *ngIf="pageData">
+  <ion-card >
 
-      <h2 [innerHTML]="pageData.name + ' ' +pageData.concentration+' '+pageData.content+' '+ pageData.subunit"></h2>
-
+    <!--<h2 [innerHTML]="pageData?.name + ' ' +pageData?.concentration+' '+pageData.content+' '+ pageData.subunit"></h2>-->
+    
+      <h2>Congesta 50mg 10Cap</h2>
     <ion-grid>
       <ion-row>
         <ion-col hidden>
@@ -33,12 +29,12 @@
         <ion-col>
           <img src="assets/icons/date.png" width="15" alt="">
           <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
-          <span class="req-value">{{pageData.expire_date | date: 'MM-yy'}}</span>
+          <span class="req-value">06-17</span>
         </ion-col>
         <ion-col>
           <img src="assets/icons/box-copy-2.png" width="15" alt="">
           <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
-          <span class="req-value">{{pageData.quantity}}</span>
+          <span class="req-value">15</span>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -53,30 +49,15 @@
         <ion-col>
           <img src="assets/icons/sale.png" width="15" alt="">
           <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
-          <span class="req-value">{{pageData.discount}} %</span>
+          <span class="req-value">6 %</span>
         </ion-col>
         <ion-col>
           <img src="assets/icons/price_icon_6.png" width="15" alt="">
-          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">{{pageData.price}}</span>
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">50 LE</span>
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>
 
-  <ion-card margin class="item-requested">
-    <div class="input-title">
-      <img src="assets/icons/box-copy-2.png" width="50" margin-right alt="">
-      <h2>Requested</h2>
-    </div>
-    <div class="input">
-      <input type="number" class="form-control" #RQ (input)="limitQuantityValue(RQ.value)">
-    </div>
-    <div class="request-ctrl">
-      <button type="button" class = 'float-btn' ion-button (click)="addRequest(RQ.value)">Request
 
-        &nbsp;<ion-spinner *ngIf="showLoader" name="crescent"></ion-spinner>
-      </button>
-      <button type="button"  class = 'float-btn' ion-button outline (click)="navigateTo(null)" >Cancel</button>
-    </div>
-  </ion-card>
 </ion-content>

@@ -54,9 +54,9 @@
         </div>
 
         <div class="input-ctrl">
-          <input  placeholder="first name" class="form-control" formControlName="firstname" >
+          <input  placeholder="first name" class="form-control" formControlName="first_name" >
           <div class="validator">
-            <ion-icon name="checkmark" [color]="signupForm.controls.firstname.valid?'primary':'lightDark'"></ion-icon>
+            <ion-icon name="checkmark" [color]="signupForm.controls.first_name.valid?'primary':'lightDark'"></ion-icon>
           </div>
         </div>
       </div>
@@ -69,9 +69,9 @@
         </div>
 
         <div class="input-ctrl">
-          <input placeholder="last name" class="form-control" formControlName="lastname" >
+          <input placeholder="last name" class="form-control" formControlName="last_name" >
           <div class="validator">
-            <ion-icon name="checkmark" [color]="signupForm.controls.lastname.valid?'primary':'lightDark'"></ion-icon>
+            <ion-icon name="checkmark" [color]="signupForm.controls.last_name.valid?'primary':'lightDark'"></ion-icon>
           </div>
         </div>
       </div>
@@ -90,9 +90,9 @@
             <ion-option *ngFor="let code of AllCallingCodes" [value]="!getcallCode?code.callingCode:code.country">+{{code.callingCode}}</ion-option>
         </ion-select> -->
         <div class="input-ctrl">
-          <input placeholder=" mobile number" class="form-control" formControlName="mobile" >
+          <input placeholder=" mobile number" class="form-control" formControlName="phone" >
           <div class="validator">
-            <ion-icon name="checkmark" [color]="signupForm.controls.mobile.valid?'primary':'lightDark'"></ion-icon>
+            <ion-icon name="checkmark" [color]="signupForm.controls.phone.valid?'primary':'lightDark'"></ion-icon>
           </div>
         </div>
       </div>

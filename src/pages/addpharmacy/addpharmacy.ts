@@ -1,3 +1,5 @@
+import { UserProvider } from './../../providers/user';
+import { Storage } from '@ionic/storage';
 import { AppProv } from './../../app/config/appprov';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
@@ -17,8 +19,9 @@ declare let google;
   templateUrl: 'addpharmacy.html',
 })
 export class AddpharmacyPage {
-  
+
   @ViewChild('map') mapElement: ElementRef;
+  static userId : number;
   map              : any;
   markers          : any[] = [];
   AddPharmacyForm  : FormGroup;
@@ -35,7 +38,9 @@ export class AddpharmacyPage {
     public mapsProvider: GappProvider,
     public gelocation: Geolocation,
     public appProv: AppProv,
-    public http: Http
+    public http: Http,
+    private storage: Storage,
+    private userProvider: UserProvider
   ) {
 
     this.AllCallingCodes = this.appProv.countryCallingCode;
@@ -47,36 +52,42 @@ export class AddpharmacyPage {
       area: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       address: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       landmark: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      pharmacyname: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      countrycall: ['', Validators.compose([Validators.required])],
-      mobile: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]+')])],
-      reg_num: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('[0-9]+')])],
+      name: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
+      calling_code: ['', Validators.compose([Validators.required])],
+      phone: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]+')])],
+      registeration_number: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('[0-9]+')])],
       role: [0, Validators.compose([Validators.required])],
-      personalid: ['', Validators.compose([Validators.required, , Validators.minLength(14), Validators.maxLength(14), Validators.pattern('[0-9]+')])],
-      syndicate_num: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('[0-9]+')])],
+      personal_id: ['', Validators.compose([Validators.required, , Validators.minLength(14), Validators.maxLength(14), Validators.pattern('[0-9]+')])],
+      syndicate_id_number: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('[0-9]+')])],
     })
 
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AddpharmacyPage');
+    this.storage.get('signupData')
+      .then(userData=>{
+        userData = JSON.parse(userData);
+        AddpharmacyPage.userId = userData.id;
 
+        console.info('user Id', AddpharmacyPage.userId);
+      });
     this.getLocation();
 
     this.AddPharmacyForm.valueChanges
       .subscribe(x => {
         console.log(x, x.role);
         if (x.role == 4 || x.role == 5) {
-          
+
           console.log('i want to remove syndecate number');
           this.AddPharmacyForm.get('syndicate_num').clearValidators();
-          
+
           this.AddPharmacyForm.controls.syndicate_num.setValidators(Validators.nullValidator);
           //x.syndicate_num.setValidators(null);
 
          // this.AddPharmacyForm.controls.syndicate_num.setValidators(null);
         }
-        
+
       })
 
   }
@@ -118,16 +129,43 @@ export class AddpharmacyPage {
 
   }
 
-  submitForm() {
+  private async submitForm() {
     console.log(this.AddPharmacyForm.value);
 
     if (this.AddPharmacyForm.valid) {
       console.log('%c%s', 'font-size:30px;color:#2196f3', 'sign up form is valid');
-      this.showToast('you have added a pharmacy..')
-      setTimeout(() => {
+      this.userProvider
+        .AddPharmacy(this.AddPharmacyForm.value)
+        .subscribe(({status, message, data})=> {
+          console.log(data);
+
+          if( status == 200) {
+            this.storage.set('PharmacyData', JSON.stringify(data))
+              .then(stored=>{
+                this.userProvider
+                  .AddPersonalId(AddpharmacyPage.userId, this.AddPharmacyForm.get('personal_id').value, this.AddPharmacyForm.get('syndicate_id_number').value)
+                  .subscribe(({status, message})=> {
+                    console.log(status, message);
+                    if(status == 200) {
+                      this.userProvider.AddRole(AddpharmacyPage.userId, this.AddPharmacyForm.get('role').value, data.id)
+                        .subscribe(({status, data, message})=> {
+                          console.info('Res', status, message);
+                          if (status === 200 && data == true) {
+                            this.showToast('Pharmacy Added Successfully');
+                            this.navCtrl.setRoot('HomePage')
+                          }
+                        })
+                    }
+                  });
+              })
+          }
+        }, err => {
+          console.warn(err);
+        })
+      /*setTimeout(() => {
         //this.navCtrl.setRoot('HomePage');
         this.navCtrl.push('LoginPage');
-      }, 1500)
+      }, 1500)*/
     } else {
       this.detectFormErrors(this.AddPharmacyForm);
     }
@@ -185,9 +223,9 @@ export class AddpharmacyPage {
         this.AddPharmacyForm.get('governorate').setValue(governorate);
         this.AddPharmacyForm.get('city').setValue(city);
         this.AddPharmacyForm.get('area').setValue(area);
-        this.AddPharmacyForm.get('countrycall').setValue(countryCall.callingCode);
+        this.AddPharmacyForm.get('calling_code').setValue(countryCall.callingCode);
         this.getcallCode = true;
-        
+
       },
       err => {
         console.warn(err);

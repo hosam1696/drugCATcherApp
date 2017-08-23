@@ -47,6 +47,11 @@ page-addrequest {
         font-size: 1.6rem;
       }
     ion-card {
+      h2 {
+        padding: 5px 12px;
+        font-weight: bold;
+        color: #555;
+      }
       &:first-child {
         margin: 0 !important;
         width: 100%;

@@ -15,9 +15,9 @@ export enum IEnLoginControls {
   password = 'Password'
 }
 export enum IEnSignUpControls {
-  firstname= 'First Name',
-  lastname = 'Last Name',
-  mobile = 'Mobile number',
+  first_name= 'First Name',
+  last_name = 'Last Name',
+  phone = 'Mobile number',
   email = 'Email',
   country =  'Country',
   countrycall= 'country call number',
@@ -38,4 +38,30 @@ export enum IEnFormControls {
   syndicate_num = 'Syndicate Number',
 
 
+}
+
+export enum IEnAddOfferForm {
+  drug_id= 'Drug name',
+  expire_date= 'Expiry date',
+  discount= 'Discount',
+  price= 'Price',
+  quantity= 'Quantity'
+}
+
+export interface Offers {
+  concentration:string,
+  content:string,
+  created_at:any,
+  discount:number,
+  drug_id:number,
+  expire_date:string,
+  id:number,
+  name:string,
+  price:string,
+  quantity:number,
+  subunit:string,
+  updated_at: any,
+  user_id:number,
+  using_date:string,
+  options: boolean
 }

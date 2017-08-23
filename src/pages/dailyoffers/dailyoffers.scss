@@ -22,6 +22,7 @@ page-dailyoffers {
       }
 
       ion-item {
+        margin-bottom: 5px !important;
         background : transparent !important;
         padding: 0 !important;
         .item-inner {
@@ -32,12 +33,12 @@ page-dailyoffers {
             font-size: 22px;
             margin-right: 3px;
           }
-  
+
         }
         .card-options {
-          
+
           button {
-            
+
             img {
               display: inline;
               width: 50px !important;
@@ -55,10 +56,10 @@ page-dailyoffers {
                   width: 50px !important;
                 }
               }
-              
+
             }
           }
-          
+
         }
         h2 {
           display: flex;
@@ -72,14 +73,14 @@ page-dailyoffers {
             width: 20px !important;
             margin-right: 5px;
             &.icon-smaller {
-  
+
               width: 16px !important;
-  
+
             }
           }
         }
       }
-      
+
     }
     ion-fab {
       button {
@@ -120,14 +121,14 @@ page-dailyoffers {
       }
 
 
-      
+
       &.card-md {
         width: 100%;
         margin :2px auto  10px !important;
         box-shadow: none;
         border-bottom: 1px solid #eee;
         border-top: 1px solid #eee;
-        
+
       }
 
       .req-value {

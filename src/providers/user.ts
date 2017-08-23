@@ -1,9 +1,9 @@
 import { Http, URLSearchParams,Headers, RequestOptions } from '@angular/http';
-import { Injectable } from '@angular/core';
+import { Injectable,Inject } from '@angular/core';
 @Injectable()
 
 export class UserProvider {
-    constructor(public http: Http) {
+    constructor(@Inject('API_URL') private API_URL,public http: Http) {
 
     }
 
@@ -16,12 +16,46 @@ export class UserProvider {
         });
     }
     loginUser(userData) {
-        
+
         let urlSearchParams = new URLSearchParams();
         for (let key of Object.keys(userData)) {
             urlSearchParams.append(key, userData[key]);
         }
 
-        return this.http.post('http://hager.000webhostapp.com/api/auth/login', urlSearchParams).map(res=>res.json());
+        return this.http.post(this.API_URL+'auth/login', urlSearchParams).map(res=>res.json());
+    }
+
+
+
+    signUpUser(userData) {
+
+        let urlSearchParams = new URLSearchParams();
+        for (let key of Object.keys(userData)) {
+            urlSearchParams.append(key, userData[key]);
+        }
+
+        return this.http.post(this.API_URL+'auth/signup', urlSearchParams).map(res=>res.json());
+    }
+
+
+    AddPharmacy(pharmacyData) {
+
+        let urlSearchParams = new URLSearchParams();
+        for (let key of Object.keys(pharmacyData)) {
+            urlSearchParams.append(key, pharmacyData[key]);
+        }
+
+        return this.http.post(this.API_URL+'addpharmacy', urlSearchParams).map(res=>res.json());
+    }
+
+
+    AddPersonalId(id, personal_id, syndicate_id_number) {
+      let urlSearchParams = new URLSearchParams();
+      return this.http.post(this.API_URL+'addpersonalid/'+id+'/'+personal_id+'/'+syndicate_id_number,urlSearchParams).map(res=>res.json());
+    }
+
+    AddRole(id, role,pharmacy_id) {
+      let urlSearchParams = new URLSearchParams();
+      return this.http.post(this.API_URL+'addrole/'+id+'/'+role+'/'+pharmacy_id,urlSearchParams).map(res=>res.json());
     }
 }

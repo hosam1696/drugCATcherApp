@@ -17,12 +17,21 @@ page-requestedoffers {
           background: $appBG
         }
 
+        .card-options {
+          button {
+            ion-icon {
+              padding-top: 5px;
+              font-size: 30px !important
+            }
+          }
+        }
         ion-list {
             ion-label {
               margin: 0 !important;
             }
-      
+
             ion-item {
+              min-height: 60px !important;
               background : transparent !important;
               padding: 0 !important;
               .item-inner {

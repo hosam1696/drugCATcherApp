@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import {AlertController, AlertOptions, Nav, Platform, ViewController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
+import { Storage} from '@ionic/storage';
 import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 
@@ -16,27 +16,37 @@ export class MyApp {
 
   pages: Array<{title: string, component: any, badge?:boolean, icon?:string}>;
 
+  userEmail: string;
   constructor(public platform: Platform,
               public statusBar: StatusBar,
               public splashScreen: SplashScreen,
-              public alertCtrl: AlertController
+              public alertCtrl: AlertController,
+              public storage: Storage
               ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
     this.pages = [
       {title: 'Home', component:'HomePage'},
-      { title: 'Daily Offers', component: 'DailyoffersPage', badge: true, icon:'daily-offers.png' },
-      { title: 'Cart', component: 'CartPage' ,badge: true, icon:'cart-in-menu.png' },
-      {title: 'History', component: 'HistoryPage', badge: true, icon:'history.png' },
+      { title: 'My Offers', component: 'DailyoffersPage', badge: false, icon:'daily-offers.png' },
+      { title: 'Cart', component: 'CartPage' ,badge: false, icon:'cart-in-menu.png' },
+      {title: 'History', component: 'HistoryPage', badge: false, icon:'history.png' },
       {title: 'Wallet', component: 'WalletPage', icon:'wallet.png'},
-      
       {title: 'Sign Out', component: 'LoginPage', icon:'sign-out.png'}
     ];
 /*
 {title: 'Pharmacy Profile', component: 'PharmacyprofilePage', icon:'pharmacyprofile.png'},
       {title: 'User Profile', component: 'UserprofilePage', icon:'userprofile.png'},
 */
+
+
+    this.storage.get('LoginData')
+      .then(data=>{
+        this.userEmail = JSON.parse(data).email;
+      })
+      .catch(err=>{
+        console.log(err);
+      })
   }
 
   initializeApp() {

@@ -8,7 +8,7 @@
 
   <ion-navbar color="primary">
 
-    <ion-title>Requested Offers</ion-title>
+    <ion-title>Requests</ion-title>
     <ion-buttons start>
       <!--<ion-icon name="search" color="light"></ion-icon>-->
       <img src="assets/img/cat.png" alt="cat image" width="30">
@@ -20,8 +20,14 @@
 
 
 <ion-content padding>
+  <p text-center class="app-msg" *ngIf="noData">
+    No Requests
+  </p>
+  <p text-center class="app-msg" *ngIf="showLoader">
+    <ion-spinner color="primary" name="crescent"></ion-spinner>
+  </p>
   <ion-list>
-    <ion-item>
+    <ion-item *ngFor="let request of AllRequest">
       <ion-item-sliding #item>
         <ion-item>
           <div class="card-wrapper">
@@ -31,7 +37,7 @@
 
 
                 <ion-col>
-                  <img src="assets/icons/box-copy-2.png" width="15" alt="">
+                  <img src="assets/icons/box-copy-2.png" width="20" alt="">
                   <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
                   <span class="req-value">10</span>
                 </ion-col>
@@ -39,38 +45,32 @@
               <ion-row>
 
 
-                <ion-col>
-                  <img src="assets/icons/box-copy-2.png" width="15" alt="">
-                  <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
-                  <span class="req-value">10</span>
-                </ion-col>
+
               </ion-row>
 
               <ion-row>
 
 
-                <ion-col>
-                  <img src="assets/icons/box-copy-2.png" width="15" alt="">
-                  <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
-                  <span class="req-value">10</span>
-                </ion-col>
+
               </ion-row>
 
-              
+
 
             </ion-grid>
           </div>
         </ion-item>
         <ion-item-options class='card-options' side="left">
           <button ion-button (click)="acceptRequest()">
-                <div class="img-wrap">
-    
-                  <img src="assets/icons/edit.png" width="50" alt="">
-                  </div>    
+                <!--<div class="img-wrap">
+
+                  <img src="assets/icons/edit.png" width="30" alt="">
+                  </div>-->
+              <ion-icon name="ios-checkmark-circle-outline" color="light"></ion-icon>
               </button>
           <button ion-button color="danger" (click)="cancelRequest()">
-                <img src="assets/icons/delete.png" width="50" alt="">
-              </button>
+                <!--<img src="assets/icons/delete.png" width="30" alt="">-->
+            <ion-icon name="ios-close-circle-outline" color="light"></ion-icon>
+          </button>
         </ion-item-options>
 
       </ion-item-sliding>

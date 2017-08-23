@@ -27,6 +27,11 @@ page-home {
       background: $appBG
     }
     ion-card {
+      h2 {
+        padding: 5px 12px;
+        font-weight: bold !important;
+        color: #666 !important;
+      }
       ion-icon {
         &.loc {
           font-size: 22px;

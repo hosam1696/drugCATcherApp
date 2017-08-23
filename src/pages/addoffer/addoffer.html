@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar color="primary">
-    <ion-title>{{pageType || 'Add'}} Offer</ion-title>
+    <ion-title>{{title || 'Add'}} Offer</ion-title>
     <ion-buttons start>
       <!--<ion-icon name="search" color="light"></ion-icon>-->
       <img src="assets/img/cat.png" alt="cat image" width="30">
@@ -19,10 +19,18 @@
 
 
 <ion-content padding-horizontal>
+
+  <form novalidate [formGroup]="AddOfferForm" (ngSubmit)="submitForm(AddOfferForm)">
   <ion-card no-margin margin-top>
-    
+
     <div class="drug-name">
-      <input type="text" placeholder="Drug name"> 
+      <div class="form-group select-country">
+        <div class="input-ctrl">
+      <ion-select formControlName="drug_id">
+        <ion-option *ngFor="let drug of Drugs" [value]="drug.id">{{drug.name + ' ' +drug.concentration+' '+drug.content+' '+ drug.subunit}}</ion-option>
+      </ion-select>
+        </div>
+      </div>
     </div>
 
     <ion-grid>
@@ -30,48 +38,49 @@
         <ion-col>
             <img src="assets/icons/box-copy-2.png" alt="">
             <div class="input">
-                
-                <input type="number" min="0" value="0" class="form-control">
+
+                <input type="number" min="0" formControlName="quantity" class="form-control">
               </div>
         </ion-col>
-        
+
         <ion-col>
             <img src="assets/icons/date.png" width="15" alt="">
             <div class="input">
-                <ion-datetime value="1997-07" pickerFormat="MMMM YYYY" displayFormat="MM/YY">
-                </ion-datetime>  
+                <ion-datetime formControlName="expire_date" value="1997-07" pickerFormat="MMMM YYYY" displayFormat="MM/YY">
+                </ion-datetime>
               </div>
-          </ion-col>  
-      </ion-row>  
+          </ion-col>
+      </ion-row>
       <ion-row>
           <ion-col>
               <img src="assets/icons/sale.png" width="15" alt="">
               <div class="input">
-                  
-                  <input type="number" min="0" value="0"  class="form-control">
+
+                  <input type="number" min="0" formControlName="discount"  class="form-control">
                 </div>
           </ion-col>
-          
+
           <ion-col>
               <img src="assets/icons/price_icon_6.png" width="15" alt="">
               <div class="input">
-                  <input type="text" class="form-control">
+                  <input type="text" class="form-control" formControlName="price">
                 </div>
-            </ion-col>  
-        </ion-row> 
-    </ion-grid>  
-    
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
     <div class="offer-btns">
         <button type="button" ion-button outline (click)="cancelOffer()">
             Cancel
           </button>
-      <button type="button" ion-button (click)="AddOffer()">
-          {{pageType || 'Add'}}  &nbsp;
+      <button type="submit" ion-button >
+          {{title || 'Add'}}  &nbsp;
       <ion-spinner name="crescent" *ngIf="showLoader">
 
       </ion-spinner>
       </button>
-      
+
     </div>
-  </ion-card>  
+  </ion-card>
+  </form>
 </ion-content>
