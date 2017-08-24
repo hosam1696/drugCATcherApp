@@ -13,13 +13,9 @@
 </ion-header>
 
 <ion-content no-padding>
-  <!--<h3>Ionic Menu Starter</h3>-->
-
-  <!--<p>-->
-    <!--If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.-->
-  <!--</p>-->
-
-  <!--<button ion-button secondary menuToggle>Toggle Menu</button>-->
+  <ion-refresher (ionRefresh)="getOffers($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
     <p text-center class="app-msg" *ngIf="showLoader">
       <ion-spinner color="primary" name="crescent"></ion-spinner>

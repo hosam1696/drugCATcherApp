@@ -47,16 +47,17 @@ export class AddpharmacyPage {
     console.log(this.AllCallingCodes);
 
     this.AddPharmacyForm = this.formBuilder.group({
+      location: [],
       governorate: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       city: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       area: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       address: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       landmark: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
       name: ['', Validators.compose([Validators.required, Validators.minLength(4)])],
-      calling_code: ['', Validators.compose([Validators.required])],
+      calling_code: [''||'20'],
       phone: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10), Validators.pattern('[0-9]+')])],
       registeration_number: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('[0-9]+')])],
-      role: [0, Validators.compose([Validators.required])],
+      role: ['Pharmacy Owner', Validators.compose([Validators.required])],
       personal_id: ['', Validators.compose([Validators.required, , Validators.minLength(14), Validators.maxLength(14), Validators.pattern('[0-9]+')])],
       syndicate_id_number: ['', Validators.compose([Validators.required, Validators.minLength(4), Validators.pattern('[0-9]+')])],
     })
@@ -64,15 +65,19 @@ export class AddpharmacyPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad AddpharmacyPage');
-    this.storage.get('signupData')
+    
+    this.storage.get('UserData')
       .then(userData=>{
         userData = JSON.parse(userData);
+
+        console.log('login data from storage');
         AddpharmacyPage.userId = userData.id;
 
         console.info('user Id', AddpharmacyPage.userId);
       });
-    this.getLocation();
+
+
+    this.getLocation();  // get user location info and address
 
     this.AddPharmacyForm.valueChanges
       .subscribe(x => {
@@ -93,15 +98,19 @@ export class AddpharmacyPage {
   }
 
   getLocation() {
-    this.gelocation.getCurrentPosition().then(({ coords, timestamp }) => {
-      const {latitude, longitude} = coords;
-      console.log(coords, timestamp);
-      this.loadMap(latitude, longitude);
-      this.getAddress(latitude, longitude);
-    }, err => {
-      console.log(err);
-      this.getUserLoc()
-    });
+
+    this.gelocation
+      .getCurrentPosition()
+      .then(({ coords, timestamp }) => {
+        const {latitude, longitude} = coords;
+        console.log(coords, timestamp);
+        this.AddPharmacyForm.get('location').setValue(latitude+','+longitude);  // set lat& lng to location field in order to send it to db 
+        this.loadMap(latitude, longitude); // load Google maps using user location
+        this.getAddress(latitude, longitude); // get approximate address of the user
+      }, err => {
+        console.log(err);
+        this.getUserLoc()
+      });
   }
 
   getUserLoc() {
@@ -134,18 +143,19 @@ export class AddpharmacyPage {
 
     if (this.AddPharmacyForm.valid) {
       console.log('%c%s', 'font-size:30px;color:#2196f3', 'sign up form is valid');
+
       this.userProvider
         .AddPharmacy(this.AddPharmacyForm.value)
         .subscribe(({status, message, data})=> {
-          console.log(data);
+          console.log('Add Pharmacy Route status & data',status,data);
 
           if( status == 200) {
-            this.storage.set('PharmacyData', JSON.stringify(data))
+            this.storage.set('PharmacyData', JSON.stringify(data)) // store the pharmacy data in case i need it
               .then(stored=>{
                 this.userProvider
                   .AddPersonalId(AddpharmacyPage.userId, this.AddPharmacyForm.get('personal_id').value, this.AddPharmacyForm.get('syndicate_id_number').value)
                   .subscribe(({status, message})=> {
-                    console.log(status, message);
+                    console.log('Add Personal Id status & message',status, message);
                     if(status == 200) {
                       this.userProvider.AddRole(AddpharmacyPage.userId, this.AddPharmacyForm.get('role').value, data.id)
                         .subscribe(({status, data, message})=> {
@@ -161,6 +171,17 @@ export class AddpharmacyPage {
           }
         }, err => {
           console.warn(err);
+
+          let error = err.json().error.message;
+          console.warn(err.json(), error);
+
+          let match = error.match(/\'+.+\'+/g)[0];
+
+          if(match.match('pharmacy_registeration_number_unique') != null) {
+              this.showToast('pharmacy registeration number isn\'t correct');
+          } else if (match.match('pharmacy_landmark_unique') != null) {
+            this.showToast('choose anothe landmark please');
+          }
         })
       /*setTimeout(() => {
         //this.navCtrl.setRoot('HomePage');

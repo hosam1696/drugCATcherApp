@@ -30,7 +30,7 @@ export class MyApp {
       {title: 'Home', component:'HomePage'},
       { title: 'My Offers', component: 'DailyoffersPage', badge: false, icon:'daily-offers.png' },
       { title: 'Cart', component: 'CartPage' ,badge: false, icon:'cart-in-menu.png' },
-      {title: 'History', component: 'HistoryPage', badge: false, icon:'history.png' },
+      //{title: 'History', component: 'HistoryPage', badge: false, icon:'history.png' },
       {title: 'Wallet', component: 'WalletPage', icon:'wallet.png'},
       {title: 'Sign Out', component: 'LoginPage', icon:'sign-out.png'}
     ];
@@ -77,7 +77,20 @@ export class MyApp {
           {
             text: 'ok',
             handler: () => {
-              this.nav.setRoot(page.component);
+
+              // Remove storage Data Before sign out 
+              Promise.all([
+                this.storage.remove('LoginData'),
+                this.storage.remove('UserData')
+              ])
+              .then(d=>{
+
+                this.nav.setRoot(page.component);
+                
+              })
+              .catch(err=> {
+                console.warn('encountered an error during removig storage', err);
+              })
             }
           }
         ]

@@ -21,7 +21,7 @@ export class DailyoffersPage {
   showLoader: boolean = true;
   noOffers: boolean = false;
   testHide: boolean = true;
-
+  loginData:any;
   AllOffers: Offers[];
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -32,35 +32,24 @@ export class DailyoffersPage {
               ) {
   }
 
-  ionViewDidLoad() {
+  ionViewWillEnter() {
+    this.ionViewDidLoad();
+  }
+  async ionViewDidLoad() {
+    
     console.log('ionViewDidLoad DailyoffersPage');
 
-    this.storage.get('LoginData')
-      .then(data=>{
-        console.log('storage data', data);
-        data = JSON.parse(data);
+    this.loginData = JSON.parse(await this.storage.get('LoginData'));
 
-        this.offerProvider
-          .getUserOffers(data.id)
-          .subscribe(({status, data})=>{
-            if (status == 200) {
-              if(data.length <=0) {
-                this.noOffers = true;
-                return false;
-              } else {
-                this.AllOffers = data.reverse();
+    console.log('storage data', this.loginData);
 
-                console.log(this.AllOffers);
-              }
-            }
-            console.log('Offers data',data);
-          }, err => {
-          console.warn(err);
-          this.showLoader = false;
-          }, ()=> {
-          this.showLoader = false;
-          })
-      });
+    if (this.loginData) {
+      this.getMyOffers(this.loginData.id);
+    } else {
+      console.log('No Login Data need a fallback');
+    }
+    
+  
 
     /*setTimeout(()=> {
       this.showLoader = false;
@@ -76,6 +65,31 @@ export class DailyoffersPage {
     });
   }*/
 
+
+  private getMyOffers(userId):void {
+
+    this.offerProvider
+    .getUserOffers(userId)
+    .subscribe(({status, data})=>{
+      if (status == 200) {
+        if(data.length <=0) {
+          this.noOffers = true;
+          return false;
+        } else {
+          this.AllOffers = data.reverse();
+
+          console.log(this.AllOffers);
+        }
+      }
+      console.log('Offers data',data);
+    }, err => {
+    console.warn(err);
+    this.showLoader = false;
+    }, ()=> {
+    this.showLoader = false;
+    })
+  }
+ 
   deleteOffer(id) {
 
     console.log('you are about to delete this offer');

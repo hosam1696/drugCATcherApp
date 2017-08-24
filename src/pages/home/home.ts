@@ -10,10 +10,11 @@ import {HomeProvider} from "../../providers/home.provider";
   templateUrl: 'home.html'
 })
 export class HomePage {
-  testHide = true;
-  showLoader: boolean = false;
+
+  showLoader: boolean = true;
   AllOffers: Offers[];
   showOptions:number;
+  loginData: any;
   constructor(public navCtrl: NavController,
               public viewCtrl: ViewController,
               private storage: Storage,
@@ -22,24 +23,12 @@ export class HomePage {
 
   }
   async ionViewDidLoad() {
-    let loginData = await this.storage.get('LoginData');
-    this.showLoader = true;
-    this.homeProvider
-      .getOffers(JSON.parse(loginData).id)
-      .subscribe(({status, data})=>{
-        data.forEach(offer=>offer.options = false);
-        if ( status == 200) {
-          this.AllOffers = data.reverse();
 
-          console.log(this.AllOffers);
-        }
-      }, err => {
-        console.warn(err);
-      }, ()=> {
-        this.showLoader = false;
-      });
+    this.loginData = JSON.parse(await this.storage.get('LoginData')); // Get Login Data userid from 
 
-    console.log('Login Data', JSON.parse(loginData));
+    console.log('Login Data \n', this.loginData);
+
+    this.getOffers();
 
 
   }
@@ -50,5 +39,25 @@ export class HomePage {
 
   private navigateToPage(page:string, pageData:any): void {
     this.navCtrl.push(page, {pageData});
+  }
+
+
+  private getOffers(event?:any):void {
+    this.homeProvider     // Get Offers from DB
+    .getOffers(this.loginData.id)
+    .subscribe(({status, data})=>{
+      data.forEach(offer=>offer.options = false);
+      if ( status == 200) {
+        this.AllOffers = data.reverse();
+
+        console.log(this.AllOffers);
+      }
+    }, err => {
+      console.warn(err);
+      event&&event.complete();
+    }, ()=> {
+      this.showLoader = false;
+      event&&event.complete();
+    });
   }
 }

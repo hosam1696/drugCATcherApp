@@ -42,9 +42,21 @@ page-record-details {
           }
         ion-card {
           h2 {
-            padding: 5px 12px;
-            font-weight: bold;
-            color: #555;
+            background-color: #7bc242;
+            color: #fff;
+            padding: 18px;
+          }
+          h3 {
+            padding-left: 10px;
+            display: flex;
+            p {
+              &:first-child {
+                color: #666
+              }
+              &:last-child {
+                color: $primary
+              }
+            }
           }
           &:first-child {
             margin: 0 !important;

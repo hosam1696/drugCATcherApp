@@ -9,7 +9,9 @@ page-addoffer {
     &.content {
       background: $appBG;
     }
-
+    button {
+      border-radius: 0 !important;
+    }
     input {
       &::placeholder {
         color: #B1B1B1

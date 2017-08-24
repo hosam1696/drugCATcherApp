@@ -9,6 +9,9 @@ page-addrequest {
     &.content {
       background: $appBG;
     }
+    button {
+      border-radius: 0 !important;
+    }
     ion-spinner {
       width: 15px;
       height: 15px;

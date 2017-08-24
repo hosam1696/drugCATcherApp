@@ -19,7 +19,8 @@ $secondary:    color($colors, secondary);
 $danger:    color($colors, danger);
 $light:    color($colors, light);
 $dark:    color($colors, dark);
-$appBG: repeating-linear-gradient(45deg, #f8f8f8, #f8f8f8 1px, transparent 1px, transparent 30px), radial-gradient(circle at center center, #fff, #f6f6f6);
+//repeating-linear-gradient(45deg, #f8f8f8, #f8f8f8 1px, transparent 1px, transparent 30px),
+$appBG:  radial-gradient(circle at center center, #fff, #f6f6f6);
 @font-face {
   font-family: 'Roboto-Regular';
   src: url('../assets/fonts/Roboto-Regular.ttf');
@@ -95,7 +96,4 @@ ion-list {
   }
 }
 
-button {
-  border-radius: 0 !important;
-}
 

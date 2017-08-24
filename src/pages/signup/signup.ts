@@ -38,7 +38,7 @@ export class SignupPage {
       country : ['20,EG', Validators.compose([Validators.required])],
       first_name: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
       last_name: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
-      countrycall: ['',Validators.compose([Validators.required])],
+      country_code: ['',Validators.compose([Validators.required])],
       phone: ['', Validators.compose([Validators.required, Validators.minLength(10), Validators.maxLength(10),Validators.pattern('[0-9]+')])],
 
       email: ['', Validators.compose([Validators.required,Validators.pattern('.*(.com)')])],
@@ -77,8 +77,11 @@ export class SignupPage {
   }
 
   submitSignUpUser() {
+
     console.log(this.signupForm.value);
+
     if (this.signupForm.valid) {
+
       console.log('%c%s','font-size:30px;color:#2196f3','sign up form is valid');
 
       this.showLoader = true;
@@ -87,14 +90,31 @@ export class SignupPage {
         .signUpUser(this.signupForm.value)
         .subscribe(({status ,data})=>{
           if (status == 'ok') {
+
             this.showToast('you have created new account successfully');
 
-            this.storage
-              .set('signupData', JSON.stringify(data))
+            this.storage             /// update stored user Id if present 
+              .get('LoginData')
+              .then(loginData=>{
+                loginData = JSON.parse(loginData);
+                loginData.id = data.id;
+                this.storage.set('LoginData', JSON.stringify(loginData));
+              })
+              .catch(noLoginDataErr=>{
+                //TODO: call to get token from Database
+                this.storage.set('LoginData', JSON.stringify({id: data.id, email: data.email}));
+              })
+
+
+            this.storage    // store data from sign up in storage
+              .set('UserData', JSON.stringify(data))
               .then(data=>{
                 console.log('data from storage resolve', data);
                 this.navigateToPage('ChooseaddorjoinPage');
-              });
+              })
+              .catch(err=>{
+                console.log('userData encountered an error on saving to storage', err); // if error is present needs a fallback action
+              })
 
 
           }
@@ -116,14 +136,6 @@ export class SignupPage {
           this.showLoader = false;
         })
 
-      // this.showToast('successfully create new account');
-
-
-
-
-      /*setTimeout(()=> {
-        this.navigateToPage('ChooseaddorjoinPage');
-      }, 2000)*/
 
     } else {
       this.detectFormErrors(this.signupForm);
@@ -142,7 +154,7 @@ export class SignupPage {
 
   }
 
-  detectFormErrors(form) {
+  private detectFormErrors(form) {
 
     console.log(this.signupForm.controls);
     console.log(Object.keys(form.controls));
@@ -212,7 +224,7 @@ export class SignupPage {
 
   nextStep() {
     this.pageNumber = 2;
-    this.signupForm.get('countrycall').setValue(this.signupForm.get('country').value.split(',')[0]);
+    this.signupForm.get('country_code').setValue(this.signupForm.get('country').value.split(',')[0]);
     setTimeout(()=>{
       this.getcallCode = false
     },0)

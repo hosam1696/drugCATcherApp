@@ -20,7 +20,7 @@ export enum IEnSignUpControls {
   phone = 'Mobile number',
   email = 'Email',
   country =  'Country',
-  countrycall= 'country call number',
+  country_code= 'country Dial number',
   password = 'Password',
   agreeTerms = 'Agree Terms',
   InsurePassword= 'Confirm Password'
@@ -31,11 +31,11 @@ export enum IEnFormControls {
   area = 'Area',
   address = 'Address',
   landmark = 'LandMark',
-  mobile = 'Pharmacy Number',
-  pharmacyname = 'Pharmacy Name',
-  personalid = 'National Id Number',
-  reg_num = 'Registeration Number',
-  syndicate_num = 'Syndicate Number',
+  phone = 'Pharmacy Number',
+  name = 'Pharmacy Name',
+  personal_id = 'National Id Number',
+  registeration_number = 'Registeration Number',
+  syndicate_id_number = 'Syndicate Number',
 
 
 }
