@@ -129,6 +129,22 @@ export class AddofferPage {
       } else {
 
 
+        this.offerProvider
+          .DeleteOffer(this.pageData.id)
+          .subscribe(res=>{
+            if(res.status === 200) {
+              this.showToast('You have Edited Offer successfully');
+              setTimeout(()=>{
+                this.navCtrl.pop();
+              }, 1500);
+            }
+          }, err=> {
+            this.showLoader = false;
+            console.warn(err);
+          }, ()=> {
+            this.showLoader =false
+          })
+
       }
     } else {
       this.detectFormErrors(this.AddOfferForm);
@@ -200,8 +216,6 @@ export class AddofferPage {
     return date+'-01'
   }
   unchangeDate(date) {
-    date = date.split('-');
-    date = date.splice(2,1);
-    return date.join();
+    return new Date(date).toISOString();
   }
 }

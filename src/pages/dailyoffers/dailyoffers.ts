@@ -44,7 +44,7 @@ export class DailyoffersPage {
     console.log('storage data', this.loginData);
 
     if (this.loginData) {
-      this.getMyOffers(this.loginData.id);
+      this.getMyOffers();
     } else {
       console.log('No Login Data need a fallback');
     }
@@ -66,10 +66,10 @@ export class DailyoffersPage {
   }*/
 
 
-  private getMyOffers(userId):void {
+  private getMyOffers(event?:any):void {
 
     this.offerProvider
-    .getUserOffers(userId)
+    .getUserOffers(this.loginData.id)
     .subscribe(({status, data})=>{
       if (status == 200) {
         if(data.length <=0) {
@@ -82,11 +82,14 @@ export class DailyoffersPage {
         }
       }
       console.log('Offers data',data);
+      
     }, err => {
-    console.warn(err);
-    this.showLoader = false;
+      console.warn(err);
+      this.showLoader = false;
+      event.complete();
     }, ()=> {
-    this.showLoader = false;
+     this.showLoader = false;
+     event&&event.complete();
     })
   }
  

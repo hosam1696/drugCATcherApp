@@ -22,7 +22,9 @@
 
 
 <ion-content padding-vertical>
-
+  <ion-refresher  (ionRefresh)="getMyOffers($event)">
+    <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
+  </ion-refresher>
   <p text-center class="app-msg" *ngIf="noOffers">
     No Offers
   </p>

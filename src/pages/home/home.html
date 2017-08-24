@@ -13,8 +13,8 @@
 </ion-header>
 
 <ion-content no-padding>
-  <ion-refresher (ionRefresh)="getOffers($event)">
-    <ion-refresher-content></ion-refresher-content>
+  <ion-refresher  (ionRefresh)="getOffers($event)">
+    <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
   </ion-refresher>
 
     <p text-center class="app-msg" *ngIf="showLoader">

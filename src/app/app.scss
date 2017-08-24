@@ -19,6 +19,7 @@ $secondary:    color($colors, secondary);
 $danger:    color($colors, danger);
 $light:    color($colors, light);
 $dark:    color($colors, dark);
+$refresher-icon-color: #888;
 //repeating-linear-gradient(45deg, #f8f8f8, #f8f8f8 1px, transparent 1px, transparent 30px),
 $appBG:  radial-gradient(circle at center center, #fff, #f6f6f6);
 @font-face {
@@ -36,6 +37,10 @@ $appBG:  radial-gradient(circle at center center, #fff, #f6f6f6);
   color: #555;
     margin-top: 0;
   
+}
+
+.refresher-refreshing-icon {
+  color: $primary;
 }
 ion-list-header {
  min-height: 10px !important;

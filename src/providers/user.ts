@@ -57,7 +57,7 @@ export class UserProvider {
     }
 
     AddRole(id, role,pharmacy_id) {
-        console.log('data will be sent to add personal id', id, role, pharmacy_id);
+        console.log('data will be sent to add Role', id, role, pharmacy_id);
       let urlSearchParams = new URLSearchParams();
       return this.http.post(this.API_URL+'addrole/'+id+'/'+role+'/'+pharmacy_id,urlSearchParams).map(res=>res.json());
     }

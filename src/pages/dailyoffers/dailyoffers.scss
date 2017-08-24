@@ -16,6 +16,19 @@ page-dailyoffers {
     &.content {
       background: $appBG
     }
+    ion-refresher {
+      ion-refreshed-content {
+        .refresher-refreshing{
+          color: $primary !important;
+          
+        }
+        ion-spinner {
+          * {
+            stroke: $primary !important;
+          }
+        }
+      }
+    }
     ion-list {
       ion-label {
         margin: 0 !important;
