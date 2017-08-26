@@ -1,26 +1,26 @@
 <!--
-  Generated template for the RecordDetailsPage page.
+  Generated template for the RecordHistoryPage page.
 
   See http://ionicframework.com/docs/components/#navigation for more info on
   Ionic pages and navigation.
 -->
 <ion-header>
 
-  <ion-navbar [color]="detectColor(pageData?.type)">
-    <ion-title>{{setTitle(RequestType)}}</ion-title>
+  <ion-navbar color="primary">
+    <ion-title>Canceled Request</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-card *ngIf="pageData">
+  <ion-card >
 
     <!--<h2 [innerHTML]="pageData?.name + ' ' +pageData?.concentration+' '+pageData.content+' '+ pageData.subunit"></h2>-->
 
     <h2
-      [ngClass]="{'light':pageData.type == 'requestDelivery', 'primary': pageData.type == 'offerDelivery', 'lightDark': pageData.type == 'pendingRequest'}"
-      [innerHTML]="pageData.name + ' ' +pageData.concentration+' '+pageData.content+' '+ pageData.subunit"></h2>
+      [ngClass]="{'light':pageData?.type == 'requestDelivery', 'primary': pageData?.type == 'offerDelivery', 'lightDark': pageData.type == 'pendingRequest'}"
+      [innerHTML]="pageData?.name + ' ' +pageData?.concentration+' '+pageData?.content+' '+ pageData?.subunit"></h2>
     <ion-grid>
       <ion-row>
         <ion-col hidden>
@@ -31,16 +31,16 @@
         <ion-col>
           <img src="assets/icons/box-copy-2.png" width="15" alt="">
           <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
-          <span class="req-value">{{pageData.quantity}}</span>
+          <span class="req-value">{{pageData?.quantity||'quantity'}}</span>
         </ion-col>
         <ion-col>
           <img src="assets/icons/date.png" width="15" alt="">
           <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
-          <span class="req-value">{{pageData.expire_date|date:'MM-yy'}}</span>
+          <span class="req-value">{{pageData?.expire_date|date:'MM-yy' || 'date'}}</span>
         </ion-col>
         <ion-col>
           <img src="assets/icons/price_icon_6.png" width="15" alt="">
-          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">{{pageData.price}} LE</span>
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">{{pageData?.price||'price'}} LE</span>
         </ion-col>
       </ion-row>
       <ion-row hidden>
@@ -74,7 +74,7 @@
     </section>
 
 
-    <section class="pharmacy-details" [hidden]="pageData.status == 0||pageData.status == 5||pageData.status == 4">
+    <section class="pharmacy-details" [hidden]="pageData?.status == 0||pageData?.status == 5||pageData?.status == 4">
       <h3>
         <p>Pharmacy Name</p>
         <p>ElHosary</p>
@@ -96,9 +96,9 @@
 
 
 
-    <section id="record-controls">
+    <section hidden id="record-controls">
       <button type="button" large class='float-btn' ion-button outline (click)="Cancel(null)">Cancel</button>
-      <button type="button" large *ngIf="pageData.status == 1 && pageData.type == 'offerDelivery'" class='float-btn'
+      <button type="button" large *ngIf="pageData?.status == 1 && pageData?.type == 'offerDelivery'" class='float-btn'
               ion-button (click)="Delivered()">Delivered
 
         &nbsp;<ion-spinner *ngIf="showLoader" name="crescent"></ion-spinner>
@@ -106,6 +106,5 @@
 
     </section>
   </ion-card>
-
 
 </ion-content>

@@ -22,7 +22,9 @@
 
 
 <ion-content padding>
-
+  <ion-refresher (ionRefresh)="getHistory($event)">
+    <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
+  </ion-refresher>
   <p text-center class="app-msg" *ngIf="noData">
     No History
   </p>
@@ -31,7 +33,7 @@
   </p>
 
   <ion-list>
-    <ion-item margin-bottom (click)="navigateTo('RecordDetailsPage', 'pageData')">
+    <ion-item margin-bottom (click)="navigateTo('RecordHistoryPage', 'pageData')">
       <ion-avatar item-left>
         <img src="assets/icons/request delivery.png">
       </ion-avatar>

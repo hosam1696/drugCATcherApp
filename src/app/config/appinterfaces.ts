@@ -83,8 +83,8 @@ export enum ERequestStatus {
   confirmRequest = 1, // offer owner accepted request to be delivered
   cancelRequest  = 2,  // offer requester user refused request to be delivered
   cancelDelivery = 3, // offer owner canceled  delivery process
-  cancelPending  = 4,  // offer owner refused request to be delivered from first time
-  cancelPendingRequest = 5, // offer requester user refused and refuse his request
+  cancelPendingRequest  = 4,  // offer owner refused request to be delivered from first time
+  cancelPending = 5, // offer requester user refused and refuse his request
   Delivered      = 6// offer owner had delivered the offer
 }
 

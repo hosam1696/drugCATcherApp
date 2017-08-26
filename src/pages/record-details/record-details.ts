@@ -81,13 +81,14 @@ export class RecordDetailsPage {
       return 7 // this is an error
     }
   }
-  changeStatus(status: number): void {
+  changeStatus(req_status: number): void {
     this.offerProvider
-      .changeRequestStatus(this.pageData.req_id, status)
+      .changeRequestStatus(this.pageData.req_id, req_status)
       .subscribe(({status, message})=> {
       console.log(status, message);
         if (status == 200) {
-          this.showToast('you have cancelled your request on that offer',
+          let msg = req_status == 6?'Delivered':'you have cancelled your request on that offer';
+          this.showToast(msg,
             ()=>{
             this.navCtrl.pop();
             }
@@ -107,7 +108,7 @@ export class RecordDetailsPage {
   showToast(msg: string, callback?:any): void {
     let toast = this.toastCtrl.create({
       message: msg,
-      duration: 2000,
+      duration: 1800,
       position: 'bottom'
     });
     toast.onDidDismiss(callback);

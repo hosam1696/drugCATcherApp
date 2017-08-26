@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import {HistoryProvider} from "../../providers/history.provider";
 import {Storage} from '@ionic/storage';
+import {ILoginData} from "../../app/config/appinterfaces";
 /**
  * Generated class for the HistoryPage page.
  *
@@ -16,6 +17,8 @@ import {Storage} from '@ionic/storage';
 })
 export class HistoryPage {
   showLoader: boolean = true;
+  noData:boolean = false;
+  LoginData: ILoginData|any;
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
               private storage: Storage,
@@ -23,30 +26,38 @@ export class HistoryPage {
               ) {
   }
 
-  ionViewDidLoad() {
+  async ionViewDidLoad() {
     console.log('ionViewDidLoad HistoryPage');
+    this.LoginData = JSON.parse(await this.storage.get('LoginData'));
 
-    this.storage.get('LoginData')
-      .then(data=>{
-        data = JSON.parse(data);
-        console.log('Login Data from Storage in History Page',data);
+    console.log('Login data In History');
 
-        if (data.id) {
-          this.historyProvider
-            .getHistory(data.id)
-            .subscribe(data=>{
-              console.log(data)
-            }, err => {
-              this.showLoader = false;
-              console.warn(err);
-            }, ()=>{
-              this.showLoader = false;
-            })
-        } else {
-          console.info('no user id ');
-        }
-
-      })
+    if (this.LoginData) {
+      this.getHistory()
+    } else {
+      console.log('No User No History')
+    }
   }
 
+  private getHistory(event?:any): void {
+    this.historyProvider
+      .getHistory(this.LoginData.id)
+      .subscribe(data=>{
+        console.log(data)
+      }, err => {
+        this.showLoader = false;
+        console.warn(err);
+        event&&event.complete()
+
+      }, ()=>{
+        this.showLoader = false;
+        event&&event.complete()
+      })
+
+  }
+
+
+  navigateTo(page:string, pageData: any):void {
+    this.navCtrl.push(page,{pageData});
+  }
 }

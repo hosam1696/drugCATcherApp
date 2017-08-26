@@ -23,7 +23,7 @@
 
 <ion-content padding>
 
-  <ion-refresher  (ionRefresh)="getCartRequest($event)">
+  <ion-refresher (ionRefresh)="getCartRequest($event)">
     <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
   </ion-refresher>
   <p text-center class="app-msg" *ngIf="noData">
@@ -35,74 +35,16 @@
 
   <ion-list *ngIf="AllRequestTypes">
 
-  <ion-item margin-bottom *ngFor="let request of AllRequestTypes" [color]="detectColor(request.type, request.status)" (click)="navigateTo('RecordDetailsPage', request)">
-    <ion-avatar item-left>
-      <img [src]="selectImg(request.type)">
-    </ion-avatar>
-    <h2 [innerHTML]="request.name + ' ' +request.concentration+' '+request.content+' '+ request.subunit"></h2>
-    <button ion-button clear item-right>
-      <ion-icon name="ios-arrow-forward" [color]="request.type == 'offerDelivery'?'light':'primary'"></ion-icon>
-    </button>
-  </ion-item>
+    <ion-item margin-bottom *ngFor="let request of AllRequestTypes" [color]="detectColor(request.type, request.status)"
+              (click)="navigateTo('RecordDetailsPage', request)">
+      <ion-avatar item-left>
+        <img [src]="selectImg(request.type)">
+      </ion-avatar>
+      <h2 [innerHTML]="request.name + ' ' +request.concentration+' '+request.content+' '+ request.subunit"></h2>
+      <button ion-button clear item-right>
+        <ion-icon name="ios-arrow-forward" [color]="request.type == 'offerDelivery'?'light':'primary'"></ion-icon>
+      </button>
+    </ion-item>
   </ion-list>
-  <!--<ion-list>
 
-        <ion-item margin-bottom color="primary" (click)="navigateTo('RecordDetailsPage', 'pageData')">
-            <ion-avatar item-left>
-              <img src="assets/icons/offerdelivery.png">
-            </ion-avatar>
-            <h2>Congestal 500mg 10Tab 1Strib</h2>
-            <button ion-button clear item-right>
-                <ion-icon name="ios-arrow-forward"></ion-icon>
-            </button>
-          </ion-item>
-        <ion-item margin-bottom (click)="navigateTo('RecordDetailsPage', 'pageData')">
-          <ion-avatar item-left>
-            <img src="assets/icons/request delivery.png">
-          </ion-avatar>
-          <h2>Congestal 500mg 10Tab 1Strib</h2>
-          <button ion-button clear item-right>
-              <ion-icon name="ios-arrow-forward"></ion-icon>
-          </button>
-        </ion-item>
-        <ion-item margin-bottom (click)="navigateTo('RecordDetailsPage', 'pageData')">
-            <ion-avatar item-left>
-              <img src="assets/icons/request delivery.png">
-            </ion-avatar>
-            <h2>Congestal 500mg 10Tab 1Strib</h2>
-            <button ion-button clear item-right>
-                <ion-icon name="ios-arrow-forward"></ion-icon>
-            </button>
-          </ion-item>
-
-          <ion-item margin-bottom color="lightDark" (click)="navigateTo('RecordDetailsPage', 'pageData')">
-              <ion-avatar item-left>
-                <img src="assets/icons/pending offer.png">
-              </ion-avatar>
-              <h2>Congestal 500mg 10Tab 1Strib</h2>
-              <button ion-button clear item-right>
-                  <ion-icon name="ios-arrow-forward"></ion-icon>
-              </button>
-            </ion-item>
-
-            <ion-item margin-bottom color="primary" (click)="navigateTo('RecordDetailsPage', 'pageData')">
-                <ion-avatar item-left>
-                  <img src="assets/icons/offerdelivery.png">
-                </ion-avatar>
-                <h2>Congestal 500mg 10Tab 1Strib</h2>
-                <button ion-button clear item-right>
-                    <ion-icon name="ios-arrow-forward"></ion-icon>
-                </button>
-              </ion-item>
-
-              <ion-item margin-bottom (click)="navigateTo('RecordDetailsPage', 'pageData')">
-                  <ion-avatar item-left>
-                    <img src="assets/icons/canceled offers.png">
-                  </ion-avatar>
-                  <h2>Congestal 500mg 10Tab 1Strib</h2>
-                  <button ion-button clear item-right>
-                      <ion-icon name="ios-arrow-forward"></ion-icon>
-                  </button>
-                </ion-item>
-      </ion-list> -->
 </ion-content>
