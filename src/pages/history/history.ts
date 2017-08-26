@@ -37,7 +37,10 @@ export class HistoryPage {
             .subscribe(data=>{
               console.log(data)
             }, err => {
+              this.showLoader = false;
               console.warn(err);
+            }, ()=>{
+              this.showLoader = false;
             })
         } else {
           console.info('no user id ');

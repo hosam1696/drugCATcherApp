@@ -32,11 +32,11 @@ export class AddofferPage {
               private storage: Storage
   ) {
 
-    this.pageData = this.navParams.get('pageData');
+    this.pageData = this.navParams.get('pageData'); // if user navigate to this page For Editing Offer
 
     console.log(this.pageData);
     this.pageData&&this.changeTitle('Edit');
-    this.AddOfferForm = this.fb.group({
+    this.AddOfferForm = this.fb.group({ // Construct Offer Form put in minds if offer data is present to edit
       drug_id: [this.pageData?this.pageData.id:1, Validators.compose([Validators.required])],
       quantity: [this.pageData?this.pageData.quantity:null, Validators.compose([Validators.required])],
       expire_date: [this.pageData?this.unchangeDate(this.pageData.expire_date):'', Validators.compose([Validators.required])],
@@ -51,23 +51,17 @@ export class AddofferPage {
    ionViewDidLoad() {
     console.log('ionViewDidLoad AddofferPage');
     this.dateNow = new Date(Date.now()).toDateString();
+
     this.storage.get('LoginData')
       .then(loginData=>{
         loginData = JSON.parse(loginData);
         this.userId = loginData.id;
       });
-    this.offerProvider.getDrugs()
-      .subscribe(({status, data})=>{
-        if (status == 200) {
-          this.Drugs = data;
-          console.log(this.Drugs);
-          !this.pageData&&this.fillPriceField();
-        }
-      }, err=> {
-        console.warn(err);
-      });
 
-    this.AddOfferForm.get('drug_id').valueChanges
+
+    this.GetDrugs(); // Get Drugs List
+
+    this.AddOfferForm.get('drug_id').valueChanges // watch change in selecting one drug from list
       .subscribe(val=>{
         console.log(val);
 
@@ -88,12 +82,29 @@ export class AddofferPage {
   private  changeTitle(title) {
     this.title = title;
   }
-  fillPriceField() {
+
+  private GetDrugs():void {
+    this.offerProvider.getDrugs()
+      .subscribe(({status, data})=>{
+        if (status == 200) {
+          this.Drugs = data;
+          console.log('Drugs Data',this.Drugs);
+          !this.pageData&&this.fillPriceField(); // If Edit Drug data is not present fill price field
+        }
+      }, err=> {
+        console.warn(err); // Detect Errors fro DB
+      });
+  }
+
+  private fillPriceField():void {
+
     let drugPrice = parseInt(this.Drugs.find(drug=>drug.id == this.AddOfferForm.get('drug_id').value).price);
 
     console.log(drugPrice);
+
     this.AddOfferForm.get('price').setValue(drugPrice);
   }
+
   cancelOffer() {
     this.navCtrl.pop();
   }
@@ -102,13 +113,14 @@ export class AddofferPage {
 
 
     if(form.valid) {
+
       this.showLoader = true;
 
-      if(this.title != 'Edit') {
+      if(this.title != 'Edit') { // If the user wants to Add Offer
 
 
       //this.AddOfferForm.get('expire_date').setValue(new Date(this.AddOfferForm.get('expire_date').value).toLocaleDateString());
-      this.AddOfferForm.get('expire_date').setValue(this.changeDate(this.AddOfferForm.get('expire_date').value));
+      this.AddOfferForm.get('expire_date').setValue(this.changeDate(this.AddOfferForm.get('expire_date').value)); // change date value to be in form dd-MM-yy to be valid BD Field
       console.log('form is valid');
       this.offerProvider
         .AddOffer(Object.assign({},form.value,{user_id: this.userId}))
@@ -116,7 +128,7 @@ export class AddofferPage {
           if(status === 200) {
             this.showToast('You have added Offer successfully');
             setTimeout(()=>{
-              this.navCtrl.pop();
+              this.navCtrl.pop(); // pop the page and move to the My offers page
             }, 1500);
           }
         }, err=> {
@@ -129,21 +141,7 @@ export class AddofferPage {
       } else {
 
 
-        this.offerProvider
-          .DeleteOffer(this.pageData.id)
-          .subscribe(res=>{
-            if(res.status === 200) {
-              this.showToast('You have Edited Offer successfully');
-              setTimeout(()=>{
-                this.navCtrl.pop();
-              }, 1500);
-            }
-          }, err=> {
-            this.showLoader = false;
-            console.warn(err);
-          }, ()=> {
-            this.showLoader =false
-          })
+
 
       }
     } else {
@@ -201,7 +199,7 @@ export class AddofferPage {
     }
   }
 
-  showToast(msg) {
+  private showToast(msg: string):void {
     let toast = this.toastCtrl.create({
       message: msg,
       duration: 3000,

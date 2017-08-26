@@ -6,19 +6,19 @@
 -->
 <ion-header>
 
-  <ion-navbar color="primary">
-    <ion-title>Request</ion-title>
+  <ion-navbar [color]="detectColor(pageData?.type)">
+    <ion-title>{{setTitle(RequestType)}}</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
-  <ion-card >
+  <ion-card *ngIf="pageData">
 
     <!--<h2 [innerHTML]="pageData?.name + ' ' +pageData?.concentration+' '+pageData.content+' '+ pageData.subunit"></h2>-->
-    
-      <h2>Congesta 50mg 10Cap</h2>
+
+      <h2 [ngClass]="{'light':pageData.type == 'requestDelivery', 'primary': pageData.type == 'offerDelivery', 'lightDark': pageData.type == 'pendingRequest'}" [innerHTML]="pageData.name + ' ' +pageData.concentration+' '+pageData.content+' '+ pageData.subunit"></h2>
     <ion-grid>
       <ion-row>
         <ion-col hidden>
@@ -29,19 +29,19 @@
         <ion-col>
           <img src="assets/icons/box-copy-2.png" width="15" alt="">
           <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
-          <span class="req-value">15</span>
+          <span class="req-value">{{pageData.quantity}}</span>
         </ion-col>
         <ion-col>
           <img src="assets/icons/date.png" width="15" alt="">
           <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
-          <span class="req-value">06-17</span>
+          <span class="req-value">{{pageData.expire_date|date:'MM-yy'}}</span>
         </ion-col>
         <ion-col>
           <img src="assets/icons/price_icon_6.png" width="15" alt="">
-          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">50 LE</span>
+          <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">{{pageData.price}}</span>
         </ion-col>
       </ion-row>
-      <ion-row>
+      <ion-row hidden>
         <ion-col hidden>
           <ion-icon name="star" color="primary"></ion-icon>
           <ion-icon name="star-outline" color="primary"></ion-icon>
@@ -62,14 +62,34 @@
       </ion-row>
     </ion-grid>
 
-    <h3>
-      <p>Pharmacy Name</p>
-      <p>ElHosary</p>
-    </h3>
-    <h3><p>Address</p>
-      <p>15 Alhoria Street salah Kamel Cairo</p></h3>
-    <h3><p>Phone Number</p>
-      <p>012478784654</p></h3>
+    <section class="pharmacy-details" hidden>
+      <h3>
+        <p>Pharmacy Name</p>
+        <p>ElHosary</p>
+      </h3>
+      <h3><p>Address</p>
+        <p>15 Alhoria Street salah Kamel Cairo</p></h3>
+      <h3><p>Phone Number</p>
+        <p>012478784654</p></h3>
+    </section>
+
+
+    <section id="requested-value">
+      <div class="input-title">
+        <img src="assets/icons/box-copy-2.png" width="50" margin-right alt="">
+        <h2>Requested Quantity</h2>
+        <h1>15</h1>
+      </div>
+    </section>
+
+    <section id="record-controls">
+      <button type="button" large class = 'float-btn' ion-button outline (click)="Cancel(null)" >Cancel</button>
+      <button type="button" large *ngIf="pageData.status == 1 && pageData.type == 'offerDelivery'" class = 'float-btn' ion-button (click)="Delivered()">Delivered
+
+        &nbsp;<ion-spinner *ngIf="showLoader" name="crescent"></ion-spinner>
+      </button>
+
+    </section>
   </ion-card>
 
 

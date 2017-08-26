@@ -20,14 +20,21 @@
 
 
 <ion-content padding>
+
+  <ion-refresher  (ionRefresh)="getRequests($event)">
+    <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
+  </ion-refresher>
+
   <p text-center class="app-msg" *ngIf="noData">
     No Requests
   </p>
   <p text-center class="app-msg" *ngIf="showLoader">
     <ion-spinner color="primary" name="crescent"></ion-spinner>
   </p>
+
+
   <ion-list>
-    <ion-item *ngFor="let request of AllRequest">
+    <ion-item margin-bottom *ngFor="let request of AllRequest">
       <ion-item-sliding #item>
         <ion-item>
           <div class="card-wrapper">
@@ -39,35 +46,22 @@
                 <ion-col>
                   <img src="assets/icons/box-copy-2.png" width="20" alt="">
                   <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->
-                  <span class="req-value">10</span>
+                  <span class="req-value">{{request.quantity}}</span>
                 </ion-col>
               </ion-row>
-              <ion-row>
-
-
-
-              </ion-row>
-
-              <ion-row>
-
-
-
-              </ion-row>
-
-
 
             </ion-grid>
           </div>
         </ion-item>
         <ion-item-options class='card-options' side="left">
-          <button ion-button (click)="acceptRequest()">
+          <button ion-button (click)="acceptRequest(request)">
                 <!--<div class="img-wrap">
 
                   <img src="assets/icons/edit.png" width="30" alt="">
                   </div>-->
               <ion-icon name="ios-checkmark-circle-outline" color="light"></ion-icon>
               </button>
-          <button ion-button color="danger" (click)="cancelRequest()">
+          <button ion-button color="danger" (click)="cancelRequest(request)">
                 <!--<img src="assets/icons/delete.png" width="30" alt="">-->
             <ion-icon name="ios-close-circle-outline" color="light"></ion-icon>
           </button>

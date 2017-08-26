@@ -7,7 +7,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { GappProvider } from "../../providers/gappproviders";
 import { Geolocation } from "@ionic-native/geolocation";
 import "rxjs/add/operator/mergeMap";
-import { IuserLocData, IEnFormControls } from "../../app/config/appinterfaces";
+import {IuserLocData, IEnFormControls, IUserData} from "../../app/config/appinterfaces";
 import { Http } from "@angular/http";
 import "rxjs/add/operator/pluck";
 
@@ -29,7 +29,7 @@ export class AddpharmacyPage {
   userIpData       : IuserLocData;
   AllCallingCodes  : any[];
   getcallCode      : boolean = false;
-
+  userData:IUserData|any;
 
   constructor(public navCtrl: NavController,
     public navParams: NavParams,
@@ -43,8 +43,9 @@ export class AddpharmacyPage {
     private userProvider: UserProvider
   ) {
 
-    this.AllCallingCodes = this.appProv.countryCallingCode;
+    this.AllCallingCodes = this.appProv.countryCallingCode; // get all country codes and counrty names
     console.log(this.AllCallingCodes);
+
 
     this.AddPharmacyForm = this.formBuilder.group({
       location: [],
@@ -65,16 +66,26 @@ export class AddpharmacyPage {
   }
 
   ionViewDidLoad() {
-    
     this.storage.get('UserData')
-      .then(userData=>{
-        userData = JSON.parse(userData);
+      .then(data=>{
+        this.userData = JSON.parse(data);
+        console.log('Data from storage', this.userData);
+      })
 
-        console.log('login data from storage');
-        AddpharmacyPage.userId = userData.id;
+    this.storage.get('UserData')  // Get User Data from Sign Up Page need [country_code]
+      .then(userData=>{
+
+        this.userData= JSON.parse(userData);
+
+        console.log('login data from storage', this.userData);
+
+        AddpharmacyPage.userId = this.userData.id;
 
         console.info('user Id', AddpharmacyPage.userId);
-      });
+
+      }).catch(err=>{
+      console.warn('No User Data had founded');
+    });
 
 
     this.getLocation();  // get user location info and address
@@ -104,7 +115,7 @@ export class AddpharmacyPage {
       .then(({ coords, timestamp }) => {
         const {latitude, longitude} = coords;
         console.log(coords, timestamp);
-        this.AddPharmacyForm.get('location').setValue(latitude+','+longitude);  // set lat& lng to location field in order to send it to db 
+        this.AddPharmacyForm.get('location').setValue(latitude+','+longitude);  // set lat& lng to location field in order to send it to db
         this.loadMap(latitude, longitude); // load Google maps using user location
         this.getAddress(latitude, longitude); // get approximate address of the user
       }, err => {
@@ -139,6 +150,9 @@ export class AddpharmacyPage {
   }
 
   private async submitForm() {
+
+    this.showLoader = true;
+
     console.log(this.AddPharmacyForm.value);
 
     if (this.AddPharmacyForm.valid) {
@@ -170,18 +184,24 @@ export class AddpharmacyPage {
               })
           }
         }, err => {
+
+          this.showLoader = false
+
           console.warn(err);
 
           let error = err.json().error.message;
+
           console.warn(err.json(), error);
 
           let match = error.match(/\'+.+\'+/g)[0];
 
           if(match.match('pharmacy_registeration_number_unique') != null) {
-              this.showToast('pharmacy registeration number isn\'t correct');
+              this.showToast('pharmacy registration number isn\'t correct');
           } else if (match.match('pharmacy_landmark_unique') != null) {
-            this.showToast('choose anothe landmark please');
+            this.showToast('choose another landmark please');
           }
+        } , ()=>{
+        this.showLoader = false
         })
       /*setTimeout(() => {
         //this.navCtrl.setRoot('HomePage');

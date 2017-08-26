@@ -58,14 +58,14 @@ export class AddrequestPage {
 
       //check if the requested quantity is smaller than the offer
 
-      this.offerProvider.AddRequestOffer({offer_id: this.pageData.id, user_id: this.userId,offer_user_id: this.pageData.user_id, quantity:reqValue}).subscribe(data=>{
+      this.offerProvider.AddRequestOffer({offer_id: this.pageData.offer_id, user_id: this.userId,offer_user_id: this.pageData.user_id, quantity:reqValue}).subscribe(data=>{
         console.log(data);
         if (data.status == 200) {
-          this.showToast('your request had been sent successfully');
-          this.showLoader = false;
-          setTimeout(()=>{
-            this.navCtrl.setRoot('HomePage');
-          }, 1000)
+          this.showToast('your request had been sent successfully',
+            ()=>{
+              this.navCtrl.setRoot('HomePage')
+            });
+
         }
       }, err=>{
         console.warn(err);
@@ -93,13 +93,13 @@ export class AddrequestPage {
     this.reqQuantity.nativeElement.value = Math.max(1,Math.min(val,maxValue));
   }
 
-  showToast(msg) {
+  showToast(msg, callback?:any) {
     let toast = this.toastCtrl.create({
       message: msg,
-      duration: 3000,
+      duration: 2000,
       position: 'top'
     });
-
+    toast.onDidDismiss(callback);
     toast.present();
   }
 

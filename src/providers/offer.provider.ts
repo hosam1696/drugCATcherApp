@@ -39,7 +39,21 @@ export class OfferProvider {
   getPendingRequests(id) {
     return this.http.get(this.API_URL+'pendingrequest/'+id).map(res=>res.json());
   }
+
   getPendingRequestsPromise(id) {
     return this.http.get(this.API_URL+'pendingrequest/'+id).map(res=>res.json()).toPromise();
+  }
+
+  getRequestsOnOffer(id) {
+
+    return this.http.get(this.API_URL+'requestsonoffer/'+id).map(res=>res.json());
+
+  }
+
+
+  changeRequestStatus(request_id, status) {
+
+
+    return this.http.post(this.API_URL+'changestatus/'+request_id+'/'+status, JSON.stringify({})).map(response=> response.json());
   }
 }

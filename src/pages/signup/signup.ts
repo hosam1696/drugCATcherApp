@@ -35,7 +35,7 @@ export class SignupPage {
     this.AllCountries = this.appProv.Countries;
     this.AllCallingCodes = this.appProv.countryCallingCode.sort();
     this.signupForm = this.formBuilder.group({
-      country : ['20,EG', Validators.compose([Validators.required])],
+      country : ['20,Egypt', Validators.compose([Validators.required])],
       first_name: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
       last_name: ['', Validators.compose([Validators.required, Validators.minLength(5)])],
       country_code: ['',Validators.compose([Validators.required])],
@@ -80,12 +80,18 @@ export class SignupPage {
 
     console.log(this.signupForm.value);
 
+
     if (this.signupForm.valid) {
 
+      this.signupForm.get('country').setValue(this.signupForm.get('country').value.split(',')[1]);
       console.log('%c%s','font-size:30px;color:#2196f3','sign up form is valid');
 
-      this.showLoader = true;
+      delete this.signupForm.value.agreeTerms;
+      delete this.signupForm.value.InsurePassword;
 
+
+      this.showLoader = true;
+      console.log('form value',this.signupForm.value);
       this.userProvider
         .signUpUser(this.signupForm.value)
         .subscribe(({status ,data})=>{
@@ -93,11 +99,12 @@ export class SignupPage {
 
             this.showToast('you have created new account successfully');
 
-            this.storage             /// update stored user Id if present 
+            this.storage             /// update stored user Id if present
               .get('LoginData')
               .then(loginData=>{
                 loginData = JSON.parse(loginData);
                 loginData.id = data.id;
+
                 this.storage.set('LoginData', JSON.stringify(loginData));
               })
               .catch(noLoginDataErr=>{
@@ -109,7 +116,7 @@ export class SignupPage {
             this.storage    // store data from sign up in storage
               .set('UserData', JSON.stringify(data))
               .then(data=>{
-                console.log('data from storage resolve', data);
+                console.log('data from storage resolve', JSON.parse(data));
                 this.navigateToPage('ChooseaddorjoinPage');
               })
               .catch(err=>{
@@ -156,9 +163,12 @@ export class SignupPage {
 
   private detectFormErrors(form) {
 
-    console.log(this.signupForm.controls);
-    console.log(Object.keys(form.controls));
+    console.log(form.controls);
+
     let formKeys = Object.keys(form.controls);
+
+    console.log('Form value Keys', Object.keys(form.controls));
+
     //console.log('email error',form.get('email').errors, form.get('password').errors);
     for (let formKey of formKeys) {
       //console.log('form Key',formKey);

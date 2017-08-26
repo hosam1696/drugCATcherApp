@@ -22,7 +22,30 @@
 
 
 <ion-content padding>
-    <ion-list>
+
+  <ion-refresher  (ionRefresh)="getCartRequest($event)">
+    <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
+  </ion-refresher>
+  <p text-center class="app-msg" *ngIf="noData">
+    No Actions
+  </p>
+  <p text-center class="app-msg" *ngIf="showLoader">
+    <ion-spinner color="primary" name="crescent"></ion-spinner>
+  </p>
+
+  <ion-list *ngIf="AllRequestTypes">
+
+  <ion-item margin-bottom *ngFor="let request of AllRequestTypes" [color]="detectColor(request.type, request.status)" (click)="navigateTo('RecordDetailsPage', request)">
+    <ion-avatar item-left>
+      <img [src]="selectImg(request.type)">
+    </ion-avatar>
+    <h2 [innerHTML]="request.name + ' ' +request.concentration+' '+request.content+' '+ request.subunit"></h2>
+    <button ion-button clear item-right>
+      <ion-icon name="ios-arrow-forward" [color]="request.type == 'offerDelivery'?'light':'primary'"></ion-icon>
+    </button>
+  </ion-item>
+  </ion-list>
+  <!--<ion-list>
 
         <ion-item margin-bottom color="primary" (click)="navigateTo('RecordDetailsPage', 'pageData')">
             <ion-avatar item-left>
@@ -81,5 +104,5 @@
                       <ion-icon name="ios-arrow-forward"></ion-icon>
                   </button>
                 </ion-item>
-      </ion-list>
+      </ion-list> -->
 </ion-content>

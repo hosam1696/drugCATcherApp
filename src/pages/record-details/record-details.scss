@@ -1,117 +1,171 @@
 page-record-details {
-    ion-content {
-        &.content {
-          background: $appBG;
-        }
-        ion-spinner {
-          width: 15px;
-          height: 15px;
-           * {
-             stroke : #fff !important
-           }
-        }
-    
-        ion-icon {
-          &.loc {
-            font-size: 22px;
-            margin-right: 3px;
-          }
-    
-        }
-        ion-grid {
-          ion-col {
-                display: flex;
-        align-items: center;
-          }
-          img {
-            display: inline !important;
-            width: 20px !important;
-            margin-right: 5px;
-            &.icon-smaller {
-    
-              width: 16px !important;
-    
-            }
-          }
-        }
-    .req-value {
-            font-weight: bolder;
-            color: #777;
-    
-            font-size: 1.6rem;
-          }
-        ion-card {
-          h2 {
-            background-color: #7bc242;
-            color: #fff;
-            padding: 18px;
-          }
-          h3 {
-            padding-left: 10px;
-            display: flex;
-            p {
-              &:first-child {
-                color: #666
-              }
-              &:last-child {
-                color: $primary
-              }
-            }
-          }
-          &:first-child {
-            margin: 0 !important;
-            width: 100%;
-            box-shadow: none !important;
-            border-bottom: 1px solid #f4f4f4;
-          }
-          margin: 16px auto !important;
-          &.item-requested {
-            position: relative;
-            text-align: center;
-            flex-direction: column;
-            min-height: 50%;
-            .input-title {
-              margin-top: 10px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-              img {
-                width: 50px !important;
-              }
-              h2 {
-                color: $primary;
-                font-size: 1.8rem
-              }
-            }
-            .input {
-              margin: 15px auto;
-              input {
-                background-color: #eee;
-                border:none;
-                height: 45px;
-                border-bottom: 2px solid $primary;
-                    padding: 5px;
-        font-size: 20px;
-        width: 45%;
-        text-align: center;
-                //width: 40%;
-              }
-            }
-            .request-ctrl {
-              position: absolute;
-              bottom: 0;
-              left: 0;
-              display: flex;
-              flex-direction: row-reverse;
-              width: 100%;
-              button {
-                width: 50%;
-                margin: 0 !important;
-    
-              }
-            }
-          }
-        }
-    
+
+  ion-header {
+    .toolbar-title {
+      letter-spacing: 2px;
+    }
+  }
+  ion-content {
+    &.content {
+      background: $appBG;
+    }
+    ion-spinner {
+      width: 15px;
+      height: 15px;
+      * {
+        stroke: #fff !important
       }
+    }
+    #requested-value {
+      .input-title {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img {
+          width: 50px !important;
+        }
+        h2 {
+          color: $primary;
+          font-size: 1.8rem;
+          padding-left: 0 !important;
+          letter-spacing: 1px;
+        }
+        h1 {
+          color: #555 !important;
+        }
+      }
+    }
+    ion-icon {
+      &.loc {
+        font-size: 22px;
+        margin-right: 3px;
+      }
+
+    }
+    ion-grid {
+      ion-col {
+        display: flex;
+        align-items: center;
+      }
+      img {
+        display: inline !important;
+        width: 20px !important;
+        margin-right: 5px;
+        &.icon-smaller {
+
+          width: 16px !important;
+
+        }
+      }
+    }
+    .req-value {
+      font-weight: bolder;
+      color: #777;
+
+      font-size: 1.6rem;
+    }
+    ion-card {
+      min-height: 50vh;
+      position: relative;
+      ion-grid {
+        border-bottom: 4px solid #f9f9f9;
+        border-top: 4px solid #fafafa;
+      }
+      h2 {
+        font-weight: bold;
+        letter-spacing: 1px;
+        color: #fff;
+        padding: 18px;
+        &.light {
+          background-color: $light;
+          color: #333
+        }
+        &.primary {
+          background-color: $primary;
+          color: #fff;
+        }
+        &.lightDark {
+          background-color: $lightDark;
+          color: #333
+        }
+      }
+      .pharmacy-details {
+        margin-top: 20px;
+        margin-bottom: 20px;
+        h3 {
+          padding-left: 10px;
+          display: flex;
+          p {
+            font-size: 1.5rem;
+            &:first-child {
+              color: #666;
+              margin-right: 10px;
+            }
+            &:last-child {
+              color: $primary;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+
+      &:first-child {
+        margin: 0 !important;
+        width: 100%;
+        box-shadow: none !important;
+        border-bottom: 1px solid #f4f4f4;
+      }
+      margin: 16px auto !important;
+      &.item-requested {
+        position: relative;
+        text-align: center;
+        flex-direction: column;
+        min-height: 50%;
+        background-color: #ccc;
+
+      }
+      .input {
+        margin: 15px auto;
+        input {
+          background-color: #eee;
+          border: none;
+          height: 45px;
+          border-bottom: 2px solid $primary;
+          padding: 5px;
+          font-size: 20px;
+          width: 45%;
+          text-align: center;
+          //width: 40%;
+        }
+      }
+      .request-ctrl {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        flex-direction: row-reverse;
+        width: 100%;
+        button {
+          width: 50%;
+          margin: 0 !important;
+
+        }
+      }
+
+    }
+
+  }
+
+  #record-controls {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    button {
+      margin: 0;
+      border-radius: 0 !important;
+      flex: 1
+    }
+  }
 }

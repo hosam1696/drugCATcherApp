@@ -7,8 +7,8 @@ export class HistoryProvider {
 
   }
 
-  getHistory(id) {
+  getHistory(user_id) {
     //let urlSearchParams = new URLSearchParams();
-    return this.http.get(`${this.API_URL}history/${id}`).map(res=>res.json());
+    return this.http.get(`${this.API_URL}getdatafromhistory/${user_id}`).map(res=>res.json());
   }
 }

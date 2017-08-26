@@ -74,7 +74,7 @@ export class LoginPage {
           this.showLoader = false;
           console.warn(err.json());
           if(err.json().error.message == '403 Forbidden') {
-            this.showToast('Email and password are not correct!');
+            this.showToast('Email or password are not correct!');
           }
           if(err&&err.url!=null) {
             let {error:{errors}} = err.json();

@@ -19,6 +19,7 @@ $secondary:    color($colors, secondary);
 $danger:    color($colors, danger);
 $light:    color($colors, light);
 $dark:    color($colors, dark);
+$lightDark : color($colors, lightDark);
 $refresher-icon-color: #888;
 //repeating-linear-gradient(45deg, #f8f8f8, #f8f8f8 1px, transparent 1px, transparent 30px),
 $appBG:  radial-gradient(circle at center center, #fff, #f6f6f6);
@@ -36,7 +37,7 @@ $appBG:  radial-gradient(circle at center center, #fff, #f6f6f6);
   font-size: 1.8rem;
   color: #555;
     margin-top: 0;
-  
+
 }
 
 .refresher-refreshing-icon {
@@ -54,11 +55,34 @@ ion-list-header {
 }
 .toolbar-title {
   text-align: center !important;
+  margin-left: -7%;
 }
 .btn-block {
   display: block;
   width: 90%;
   margin: 12px auto !important;
+}
+.item-md {
+  ion-avatar  {
+    img {
+      border-radius: 0 !important;
+    }
+
+  }
+}
+
+.item-ios {
+  ion-avatar  {
+    img {
+      border-radius: 0 !important;
+    }
+
+  }
+}
+
+
+button {
+  letter-spacing: 1px;
 }
 ion-list {
   &.side-menu{

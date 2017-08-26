@@ -16,7 +16,9 @@
   <ion-refresher  (ionRefresh)="getOffers($event)">
     <ion-refresher-content refreshingSpinner="crescent"></ion-refresher-content>
   </ion-refresher>
-
+  <p text-center class="app-msg" *ngIf="noOffers">
+    No Offers
+  </p>
     <p text-center class="app-msg" *ngIf="showLoader">
       <ion-spinner color="primary" name="crescent"></ion-spinner>
     </p>
@@ -58,7 +60,7 @@
             </ion-col>
             <ion-col>
               <img src="assets/icons/price_icon_6.png" width="15" alt="">
-              <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">{{offer.price}}</span>
+              <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">{{offer.price}} LE</span>
             </ion-col>
           </ion-row>
         </ion-grid>
@@ -66,4 +68,10 @@
           <img src="assets/icons/check-request.png" width="60" alt="">
         </button>
       </ion-card>
+
+  <ion-infinite-scroll hidden *ngIf="moreData" (ionInfinite)="fetchMoreData($event)">
+    <ion-infinite-scroll-content loadingSpinner="crescent" loadingText="loading more offers .. ">
+      >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

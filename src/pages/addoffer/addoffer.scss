@@ -17,6 +17,9 @@ page-addoffer {
         color: #B1B1B1
       }
     }
+    .input-ctrl {
+      width: 100%;
+    }
     ion-spinner {
       width: 15px;
       height: 15px;
@@ -32,8 +35,8 @@ page-addoffer {
         padding: 15px;
         text-align: center;
         .form-group {
+          width: 100%;
           position:relative;
-          width: $content-width;
           display: flex;
           height: 40px;
           margin: 12px 0;
@@ -61,6 +64,7 @@ page-addoffer {
           padding: 5px;
           font-size: 20px;
           width: 90%;
+
         }
       }
       ion-grid {
@@ -71,7 +75,7 @@ page-addoffer {
           .input {
             margin: 15px auto 15px 7px;
             input {
-              background-color: #eee;
+              background-color: #f3f3f3;
               border: none;
               height: 45px;
               color: #666;
@@ -79,16 +83,18 @@ page-addoffer {
               padding: 5px;
               font-size: 20px;
               width: 90%;
-
+              border-radius: 5px 5px 0 0;
+              text-align: center;
               //text-align: center; //width: 40%;
             }
           }
           ion-datetime {
-            position: relative;background-color: #eee;
+            position: relative;background-color: #f3f3f3;
             border: none;
             height: 45px;
             color: #666;
             border-bottom: 2px solid $primary;
+            margin: 7px 9% 7px 7px;
             //padding: 5px;
             //font-size: 20px;
             min-width:  60px !important;

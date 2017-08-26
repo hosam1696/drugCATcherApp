@@ -11,12 +11,21 @@ page-requestedoffers {
             margin: 0 15px;
           }
         }
+      .toolbar-title {
+        letter-spacing: 2px;
+      }
       }
       ion-content {
         &.content {
           background: $appBG
         }
-
+        ion-col {
+          display: flex;
+          align-items: center;
+          img {
+            margin-right: 5px
+          }
+        }
         .card-options {
           button {
             ion-icon {
@@ -37,6 +46,7 @@ page-requestedoffers {
               .item-inner {
                 padding-right: 0 !important;
               }
+
             }
         }
     }

@@ -83,7 +83,8 @@ page-addrequest {
         .input {
           margin: 15px auto;
           input {
-            background-color: #eee;
+            background-color: #f3f3f3;
+            border-radius: 5px 5px 0 0;
             border:none;
             height: 45px;
             border-bottom: 2px solid $primary;

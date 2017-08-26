@@ -49,13 +49,14 @@ export enum IEnAddOfferForm {
 }
 
 export interface Offers {
-  concentration:string,
-  content:string,
+  concentration: string,
+  content: string,
   created_at:any,
   discount:number,
   drug_id:number,
   expire_date:string,
-  id:number,
+  id: number,
+  offer_id: number,
   name:string,
   price:string,
   quantity:number,
@@ -64,4 +65,31 @@ export interface Offers {
   user_id:number,
   using_date:string,
   options: boolean
+}
+
+export interface ILoginData {
+  id: number,
+  email: string,
+  token?:string
+}
+
+export interface  IUserData {
+
+}
+
+
+export enum ERequestStatus {
+  pendingrequest = 0, // No Actions Yet on the request
+  confirmRequest = 1, // offer owner accepted request to be delivered
+  cancelRequest  = 2,  // offer requester user refused request to be delivered
+  cancelDelivery = 3, // offer owner canceled  delivery process
+  cancelPending  = 4,  // offer owner refused request to be delivered from first time
+  cancelPendingRequest = 5, // offer requester user refused and refuse his request
+  Delivered      = 6// offer owner had delivered the offer
+}
+
+export enum ERequestType {
+  pendingRequest = 'Pending Request',
+  offerDelivery  = 'Offer Delivery',
+  requestDelivery= 'RequestDelivery'
 }

@@ -31,9 +31,10 @@ export class UserProvider {
 
         let urlSearchParams = new URLSearchParams();
         for (let key of Object.keys(userData)) {
+            console.log('userData', key, userData[key]);
             urlSearchParams.append(key, userData[key]);
         }
-
+      console.log(urlSearchParams);
         return this.http.post(this.API_URL+'auth/signup', urlSearchParams).map(res=>res.json());
     }
 

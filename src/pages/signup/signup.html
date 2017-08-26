@@ -29,7 +29,7 @@
         <div class="input-ctrl">
           <ion-select   class="form-control" formControlName="country" >
 
-            <ion-option *ngFor="let country of AllCountries" [value]="country.callingCode[0]+','+country.cca2" >{{country.name.common}}</ion-option>
+            <ion-option *ngFor="let country of AllCountries" [value]="country.callingCode[0]+','+country.name.common" >{{country.name.common}}</ion-option>
             </ion-select>
 
         </div>
@@ -84,8 +84,8 @@
         </div>
 
         <div class="call-num-alt">
-          +{{signupForm.controls.country_code.value}}  
-        </div> 
+          +{{signupForm.controls.country_code.value}}
+        </div>
         <!--<ion-select class="mobile-select" formControlName="countrycall">
             <ion-option *ngFor="let code of AllCallingCodes" [value]="!getcallCode?code.callingCode:code.country">+{{code.callingCode}}</ion-option>
         </ion-select> -->

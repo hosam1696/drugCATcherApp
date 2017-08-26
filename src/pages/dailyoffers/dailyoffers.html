@@ -35,7 +35,7 @@
   <ion-list *ngIf="AllOffers">
     <ion-item *ngFor="let offer of AllOffers">
       <ion-item-sliding #item>
-        <ion-item (click)="navigateTo('RequestedoffersPage', offer.id)">
+        <ion-item (click)="navigateTo('RequestedoffersPage', offer.offer_id)">
           <div class="card-wrapper" >
             <h2 [innerHTML]="offer.name + ' ' +offer.concentration+' '+offer.content+' '+ offer.subunit">
 
@@ -65,7 +65,7 @@
                 </ion-col>
                 <ion-col>
                   <img src="assets/icons/price_icon_6.png" width="15" alt="">
-                  <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">{{offer.price}}</span>
+                  <!--<ion-icon name="ios-baseball-outline" color="primary"></ion-icon> &nbsp;-->&nbsp;<span class="req-value">{{offer.price}} LE</span>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -78,7 +78,7 @@
               <img src="assets/icons/edit.png" width="50" alt="">
               </div>
           </button>
-          <button ion-button color="danger" (click)="deleteOffer(offer.id)">
+          <button ion-button color="danger" (click)="deleteOffer(offer.offer_id)">
             <img src="assets/icons/delete.png" width="50" alt="">
           </button>
         </ion-item-options>

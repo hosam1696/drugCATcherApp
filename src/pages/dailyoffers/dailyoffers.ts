@@ -36,7 +36,7 @@ export class DailyoffersPage {
     this.ionViewDidLoad();
   }
   async ionViewDidLoad() {
-    
+
     console.log('ionViewDidLoad DailyoffersPage');
 
     this.loginData = JSON.parse(await this.storage.get('LoginData'));
@@ -48,8 +48,8 @@ export class DailyoffersPage {
     } else {
       console.log('No Login Data need a fallback');
     }
-    
-  
+
+
 
     /*setTimeout(()=> {
       this.showLoader = false;
@@ -74,15 +74,16 @@ export class DailyoffersPage {
       if (status == 200) {
         if(data.length <=0) {
           this.noOffers = true;
+
           return false;
         } else {
           this.AllOffers = data.reverse();
-
+          this.noOffers = false;
           console.log(this.AllOffers);
         }
       }
       console.log('Offers data',data);
-      
+
     }, err => {
       console.warn(err);
       this.showLoader = false;
@@ -92,7 +93,7 @@ export class DailyoffersPage {
      event&&event.complete();
     })
   }
- 
+
   deleteOffer(id) {
 
     console.log('you are about to delete this offer');
@@ -111,10 +112,10 @@ export class DailyoffersPage {
             this.offerProvider
               .DeleteOffer(id)
               .subscribe(data => {
-                let index = this.AllOffers.findIndex(offer=> offer.id == id);
+                let index = this.AllOffers.findIndex(offer=> offer.offer_id == id); // get the wanted offer index
                 console.log(data);
                 if(data.message == "delleted succefully") {
-                  this.AllOffers.splice(index,1);
+                  this.AllOffers.splice(index,1); // remove the offer from AllOffers Array
                   this.showToast('Offer Deleted Successfully');
                 }
 
